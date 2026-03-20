@@ -45,6 +45,27 @@
   /* コメントエリア */
   .card-comment {
     margin-top:14px;
+  }
+  .card-comment summary {
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.1em;
+    cursor:pointer;
+    user-select:none;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card-comment summary::-webkit-details-marker { display:none; }
+  .card-comment summary::before {
+    content:'▶';
+    font-size:9px;
+    transition:transform 0.2s;
+  }
+  .card-comment[open] summary::before { transform:rotate(90deg); }
+  .card-comment .comment-body {
+    margin-top:10px;
     background:var(--tag-bg);
     border-radius:8px;
     padding:12px 14px;
@@ -53,11 +74,11 @@
     line-height:1.8;
   }
   /* コメント内のリッチコンテンツ向けスタイル */
-  .card-comment p { margin-bottom:0.8em; }
-  .card-comment p:last-child { margin-bottom:0; }
-  .card-comment img { max-width:100%; border-radius:4px; margin:8px 0; display:block; }
-  .card-comment iframe { max-width:100%; margin:8px auto; display:block; border-radius:4px; }
-  .card-comment a { color:var(--accent); text-decoration:underline; }
+  .card-comment .comment-body p { margin-bottom:0.8em; }
+  .card-comment .comment-body p:last-child { margin-bottom:0; }
+  .card-comment .comment-body img { max-width:100%; border-radius:4px; margin:8px auto; display:block; }
+  .card-comment .comment-body iframe { max-width:100%; margin:8px auto; display:block; border-radius:4px; }
+  .card-comment .comment-body a { color:var(--accent); text-decoration:underline; }
 
   footer { text-align:center; padding:24px; font-size:11px; color:var(--muted); letter-spacing:0.1em; border-top:1px solid var(--border); }
   @media (max-width:600px) {
@@ -286,23 +307,12 @@ document.querySelectorAll('.card-comment[data-comment]').forEach(el => {
       return r.text();
     })
     .then(html => {
-      el.innerHTML = html;
-      if (!el.textContent.trim()) {
-        el.style.display = 'none';
-        return;
-      }
-      // Twitter埋め込みを再レンダリング
-      if (el.querySelector('.twitter-tweet')) {
-        if (window.twttr && window.twttr.widgets) {
-          window.twttr.widgets.load(el);
-        } else {
-          const s = document.createElement('script');
-          s.src = 'https://platform.twitter.com/widgets.js';
-          s.async = true;
-          s.onload = () => window.twttr && window.twttr.widgets.load(el);
-          document.head.appendChild(s);
-        }
-      }
+      if (!html.trim()) { el.style.display = 'none'; return; }
+      // details要素に変換して折りたたみ可能に
+      el.outerHTML = `<details class="card-comment" data-comment="${id}">
+        <summary>担当者コメント</summary>
+        <div class="comment-body">${html}</div>
+      </details>`;
     })
     .catch(() => {
       el.style.display = 'none';
