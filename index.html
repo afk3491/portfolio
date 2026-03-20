@@ -41,7 +41,24 @@
   .card-stats { display:flex; align-items:baseline; gap:16px; }
   .card-amount { font-size:13px; color:var(--sub); }
   .card-supporters { font-size:12px; color:var(--muted); }
-  .card-comment { margin-top:14px; font-size:13px; color:var(--sub); line-height:1.8; background:var(--tag-bg); border-radius:8px; padding:12px 14px; }
+
+  /* コメントエリア */
+  .card-comment {
+    margin-top:14px;
+    background:var(--tag-bg);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:13px;
+    color:var(--sub);
+    line-height:1.8;
+  }
+  /* コメント内のリッチコンテンツ向けスタイル */
+  .card-comment p { margin-bottom:0.8em; }
+  .card-comment p:last-child { margin-bottom:0; }
+  .card-comment img { max-width:100%; border-radius:4px; margin:8px 0; display:block; }
+  .card-comment iframe { max-width:100%; margin:8px 0; display:block; border-radius:4px; }
+  .card-comment a { color:var(--accent); text-decoration:underline; }
+
   footer { text-align:center; padding:24px; font-size:11px; color:var(--muted); letter-spacing:0.1em; border-top:1px solid var(--border); }
   @media (max-width:600px) {
     .card-top { grid-template-columns:1fr; }
@@ -57,6 +74,7 @@
   <p class="desc">CAMPFIRE にてプロデュース・担当した代表的なプロジェクトの一覧です。<br>宇宙開発・アート・社会課題・地域活性化など、幅広いジャンルに関わってきました。<br>ここに掲載しているのはその一部です。</p>
 </header>
 <div class="project-list">
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/40518" target="_blank" rel="noopener" class="card-thumb-link">
@@ -76,8 +94,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">（担当者コメントをここに入力）</p>
+    <div class="card-comment" data-comment="40518"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener" class="card-thumb-link">
@@ -97,8 +116,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">日本初の純民間ロケット打ち上げプロジェクト第2弾。前回（初号機）の経験を踏まえた改良版MOMOのクラウドファンディングを担当。「みんなのロケット」というコンセプトが多くの支援者の共感を得て目標を達成。その後MOMO3号機が国内民間初の宇宙到達を実現し、本プロジェクト支援者が歴史的瞬間を共有することとなった。</p>
+    <div class="card-comment" data-comment="54332"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/124546" target="_blank" rel="noopener" class="card-thumb-link">
@@ -118,8 +138,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">31歳でステージ4乳がんを宣告された代表・中島ナオさんによる社会変革プロジェクト。「企業ロゴからCを消す」というビジュアルアクションでがん治療研究への関心を喚起する仕組みを構築。わずか23日間の募集でForbes・HUFFPOSTなどに多数掲載された。</p>
+    <div class="card-comment" data-comment="124546"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/124160" target="_blank" rel="noopener" class="card-thumb-link">
@@ -139,8 +160,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">静岡県天竜のローカル線・無人駅の駅舎を一日一組限定ホテルにリノベーションするプロジェクト。「地方でもこんなかっこいいことができる」という問いかけが全国の共感を呼んだ。All-in方式での挑戦だったが、その後「駅舎ホテルINN MY LIFE」として正式オープン。地方創生の新しいモデルケースとなっている。</p>
+    <div class="card-comment" data-comment="124160"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/143131" target="_blank" rel="noopener" class="card-thumb-link">
@@ -160,8 +182,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">アーティスト愛☆まどんな × 漫画家山田玲司 × 編集者柿内芳文による「アートコミックス」という新ジャンルへの挑戦。GW中に開催した白亜展は大盛況となった。『嫌われる勇気』を手がけた編集者が率いるプロジェクトとして、エンタメ×クラウドファンディングの可能性を示した。</p>
+    <div class="card-comment" data-comment="143131"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/571880" target="_blank" rel="noopener" class="card-thumb-link">
@@ -181,8 +204,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">TikTok250万フォロワーを誇るアニメ作家・安田現象の初長編映画『メイク ア ガール』制作支援プロジェクト。従来の製作委員会方式を避けクリエイターの世界観を守るために少人数スタジオXenotoonと組んだ、新しい映像制作モデル。SNS世代のクリエイターエコノミーを体現した。</p>
+    <div class="card-comment" data-comment="571880"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/599785" target="_blank" rel="noopener" class="card-thumb-link">
@@ -202,8 +226,9 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">東日本大震災で壊滅的被害を受けた宮城県石巻市雄勝町の巨大防潮堤に、アーティスト安井鷹之介が壁画を描き野外美術館を開館するプロジェクト。GoodMorningにて実施し、2022年11月に「海岸線の美術館」として正式開館した。</p>
+    <div class="card-comment" data-comment="599785"></div>
   </article>
+
   <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/694451" target="_blank" rel="noopener" class="card-thumb-link">
@@ -223,10 +248,30 @@
         </div>
       </div>
     </div>
-    <p class="card-comment">エベレスト登頂・南極・砂漠など世界の極地を撮影してきた写真家・上田優紀によるプロジェクト。スピリッツベアとザトウクジラという神話に登場する野生動物の撮影に挑戦。支援者を巻き込みながら「旅のナラティブ」をリアルタイムで共有する形で大きく広がった。</p>
+    <div class="card-comment" data-comment="694451"></div>
   </article>
+
 </div>
 <footer>CAMPFIRE Project Portfolio &nbsp;—&nbsp; Partial list of projects handled</footer>
 
+<script>
+// comments/xxxxx.html を fetch して .card-comment に挿入する
+document.querySelectorAll('.card-comment[data-comment]').forEach(el => {
+  const id = el.dataset.comment;
+  fetch(`comments/${id}.html`)
+    .then(r => {
+      if (!r.ok) throw new Error('not found');
+      return r.text();
+    })
+    .then(html => {
+      el.innerHTML = html;
+      // コメントが空なら非表示
+      if (!el.textContent.trim()) el.style.display = 'none';
+    })
+    .catch(() => {
+      el.style.display = 'none'; // ファイルがなければ非表示
+    });
+});
+</script>
 </body>
 </html>
