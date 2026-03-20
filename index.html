@@ -287,11 +287,25 @@ document.querySelectorAll('.card-comment[data-comment]').forEach(el => {
     })
     .then(html => {
       el.innerHTML = html;
-      // コメントが空なら非表示
-      if (!el.textContent.trim()) el.style.display = 'none';
+      if (!el.textContent.trim()) {
+        el.style.display = 'none';
+        return;
+      }
+      // Twitter埋め込みを再レンダリング
+      if (el.querySelector('.twitter-tweet')) {
+        if (window.twttr && window.twttr.widgets) {
+          window.twttr.widgets.load(el);
+        } else {
+          const s = document.createElement('script');
+          s.src = 'https://platform.twitter.com/widgets.js';
+          s.async = true;
+          s.onload = () => window.twttr && window.twttr.widgets.load(el);
+          document.head.appendChild(s);
+        }
+      }
     })
     .catch(() => {
-      el.style.display = 'none'; // ファイルがなければ非表示
+      el.style.display = 'none';
     });
 });
 </script>
