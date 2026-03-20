@@ -87,18 +87,25 @@
   .card:first-child { border-top: 1px solid var(--border); margin-top: 40px; }
 
   /* サムネイル */
-  .card-thumb {
+  .card-thumb-link {
+    display: block;
     width: 200px;
-    height: 134px; /* 3:2 */
-    background: var(--thumb-bg);
+    height: 134px;
     flex-shrink: 0;
+    align-self: start;
+  }
+  .card-thumb {
+    width: 100%;
+    height: 100%;
+    background: var(--thumb-bg);
     position: relative;
     overflow: hidden;
-    align-self: start;
   }
   .card-thumb img {
     width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: opacity 0.2s;
   }
+  .card-thumb-link:hover .card-thumb img { opacity: 0.85; }
   .thumb-skeleton {
     width: 100%; height: 100%;
     background: linear-gradient(90deg, var(--thumb-bg) 25%, var(--border) 50%, var(--thumb-bg) 75%);
@@ -220,7 +227,7 @@
 <div class="project-list">
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/54332">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="01_momo.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2017年12月03日 → 2018年02月10日</span>
@@ -238,7 +245,7 @@
   </article>
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/124546">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/124546" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="02_deletec.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2019年02月04日 → 2019年02月27日</span>
@@ -255,7 +262,7 @@
   </article>
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/124160">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/124160" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="03_innmylife.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2019年03月06日 → 2019年04月15日</span>
@@ -272,7 +279,7 @@
   </article>
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/143131">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/143131" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="04_hakua.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2019年04月04日 → 2019年05月14日</span>
@@ -288,7 +295,7 @@
   </article>
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/571880">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/571880" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="05_gensho.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2022年08月26日 → 2022年10月31日</span>
@@ -305,7 +312,7 @@
   </article>
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/599785">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/599785" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="06_seawall.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2022年07月30日 → 2022年08月31日</span>
@@ -322,7 +329,7 @@
   </article>
 
   <article class="card" data-url="https://camp-fire.jp/projects/view/694451">
-    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
+    <a href="https://camp-fire.jp/projects/694451" target="_blank" rel="noopener" class="card-thumb-link"><div class="card-thumb"><img src="07_yukiueda.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\"thumb-placeholder\">NO IMAGE</div>'"><div class="thumb-skeleton" style="display:none"></div></div></a>
     <div class="card-body">
       <div class="card-meta">
         <span class="card-period">2024年07月31日 → 2024年09月30日</span>
@@ -341,51 +348,5 @@
 
 <footer>CAMPFIRE Project Portfolio &nbsp;—&nbsp; Partial list of projects handled</footer>
 
-<script>
-/* OGP サムネイル自動取得
-   allorigins.win (無料 CORS プロキシ) 経由で各 CAMPFIRE ページの HTML を取得し
-   og:image を card-thumb に差し込む。失敗時はプレースホルダー表示。 */
-
-const PROXY = 'https://api.allorigins.win/get?url=';
-
-function showPlaceholder(thumb) {
-  const sk = thumb.querySelector('.thumb-skeleton');
-  const ph = document.createElement('div');
-  ph.className = 'thumb-placeholder';
-  ph.textContent = 'NO IMAGE';
-  (sk || thumb).replaceWith ? (sk ? sk.replaceWith(ph) : thumb.appendChild(ph)) : thumb.appendChild(ph);
-}
-
-async function loadOgImage(card) {
-  const pageUrl = card.dataset.url;
-  const thumb   = card.querySelector('.card-thumb');
-  try {
-    const res = await fetch(PROXY + encodeURIComponent(pageUrl), {
-      signal: AbortSignal.timeout(10000)
-    });
-    if (!res.ok) throw new Error('proxy ' + res.status);
-    const { contents } = await res.json();
-    const m =
-      contents.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
-      contents.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-    if (!m) throw new Error('no og:image');
-    const img = new Image();
-    img.alt = card.querySelector('.card-title')?.textContent?.trim() || '';
-    img.onload = () => {
-      const sk = thumb.querySelector('.thumb-skeleton');
-      if (sk) sk.replaceWith(img); else thumb.prepend(img);
-    };
-    img.onerror = () => showPlaceholder(thumb);
-    img.src = m[1];
-  } catch {
-    showPlaceholder(thumb);
-  }
-}
-
-// 200ms ずつずらして並列取得
-document.querySelectorAll('.card[data-url]').forEach((card, i) =>
-  setTimeout(() => loadOgImage(card), i * 200)
-);
-</script>
 </body>
 </html>
