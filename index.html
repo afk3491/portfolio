@@ -4,703 +4,388 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — CAMPFIRE Projects</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
+  /* ── リセット & ベース ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --bg: #f5f2ee;
+    --bg:      #f8f8f6;
     --surface: #ffffff;
-    --ink: #1a1816;
-    --ink-muted: #6b6560;
-    --ink-faint: #b0aaa3;
-    --accent: #c85a2a;
-    --accent-light: #f7ede6;
-    --border: #e0dad3;
-    --border-hover: #c8bfb5;
-    --tag-bg: #ede8e2;
-    --thumb-bg: #d8d2ca;
+    --border:  #e0e0dc;
+    --text:    #1a1a1a;
+    --sub:     #555550;
+    --muted:   #999990;
+    --accent:  #e84b1e;
+    --tag-bg:  #f0f0ec;
+    --thumb-bg:#e8e8e4;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1a1816;
-      --surface: #222019;
-      --ink: #e8e3dc;
-      --ink-muted: #9a928a;
-      --ink-faint: #524d48;
-      --accent: #e07042;
-      --accent-light: #2a1e16;
-      --border: #302c28;
-      --border-hover: #4a4440;
-      --tag-bg: #2a2622;
-      --thumb-bg: #2e2a26;
+      --bg:      #141412;
+      --surface: #1e1e1c;
+      --border:  #2e2e2a;
+      --text:    #f0f0ec;
+      --sub:     #aaaaA4;
+      --muted:   #666660;
+      --accent:  #f06040;
+      --tag-bg:  #282826;
+      --thumb-bg:#282826;
     }
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+
   body {
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: -apple-system, 'Helvetica Neue', 'Noto Sans JP', sans-serif;
     background: var(--bg);
-    color: var(--ink);
+    color: var(--text);
+    font-size: 14px;
     line-height: 1.7;
-    font-size: 15px;
   }
 
+  /* ── ヘッダー ── */
   header {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 72px 32px 52px;
+    padding: 48px 0 32px;
+    text-align: center;
     border-bottom: 1px solid var(--border);
   }
-  .header-eyebrow {
-    font-family: 'DM Mono', monospace;
+  header p.label {
     font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
   }
   header h1 {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 36px;
-    font-weight: 300;
-    line-height: 1.35;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
     letter-spacing: -0.01em;
-    margin-bottom: 18px;
+    color: var(--text);
+    margin-bottom: 16px;
   }
-  .header-desc {
-    font-size: 14px;
-    color: var(--ink-muted);
-    max-width: 560px;
-    line-height: 1.85;
-  }
-
-  /* 画像置き換えガイド */
-  .thumb-guide {
-    margin-top: 24px;
-    padding: 14px 18px;
-    border: 1px dashed var(--border-hover);
-    border-radius: 8px;
-    font-size: 12px;
-    color: var(--ink-faint);
-    line-height: 1.7;
-  }
-  .thumb-guide strong { color: var(--ink-muted); }
-  .thumb-guide code {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    background: var(--tag-bg);
-    padding: 1px 5px;
-    border-radius: 3px;
-  }
-
-  nav {
-    max-width: 920px;
+  header .desc {
+    font-size: 13px;
+    color: var(--sub);
+    max-width: 520px;
     margin: 0 auto;
-    padding: 0 32px;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
+    line-height: 1.8;
+  }
+
+  /* ── プロジェクトリスト ── */
+  .project-list {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── カード ── */
+  .card {
+    display: grid;
+    grid-template-columns: 220px 1fr;
     border-bottom: 1px solid var(--border);
+    padding: 36px 0;
+    gap: 0;
   }
-  .nav-btn {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    padding: 18px 18px;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-    font-family: 'DM Mono', monospace;
-    margin-bottom: -1px;
-  }
-  .nav-btn:hover { color: var(--ink); }
-  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .card:first-child { border-top: 1px solid var(--border); margin-top: 40px; }
 
-  main {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 40px 32px 80px;
-  }
-
-  .project-card {
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--surface);
-    margin-bottom: 24px;
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .project-card:hover {
-    border-color: var(--border-hover);
-    box-shadow: 0 6px 28px rgba(0,0,0,0.07);
-  }
-  .project-card.hidden { display: none; }
-
-  /* ─── サムネイル ─── */
+  /* サムネイル */
   .card-thumb {
-    width: 100%;
-    height: 240px;
-    overflow: hidden;
+    width: 200px;
+    height: 134px; /* 3:2 */
+    background: var(--thumb-bg);
+    flex-shrink: 0;
     position: relative;
-    background: var(--thumb-bg);
+    overflow: hidden;
+    align-self: start;
   }
-  /* 画像あり */
   .card-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    transition: transform 0.5s ease;
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
-  .project-card:hover .card-thumb img { transform: scale(1.03); }
-
-  /* プレースホルダー（画像なし時） */
+  .thumb-skeleton {
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, var(--thumb-bg) 25%, var(--border) 50%, var(--thumb-bg) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
   .thumb-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--thumb-bg);
-  }
-  .thumb-placeholder .ph-icon {
-    width: 40px;
-    height: 40px;
-    opacity: 0.25;
-  }
-  .thumb-placeholder .ph-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 300;
-    color: var(--ink-faint);
-    letter-spacing: 0.12em;
-    text-align: center;
-    padding: 0 24px;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 11px; letter-spacing: 0.1em;
   }
 
-  .thumb-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.52) 100%);
-    pointer-events: none;
-  }
-  /* 画像なし時はオーバーレイ不要 */
-  .card-thumb:not(:has(img)) .thumb-overlay { display: none; }
-
-  .thumb-date {
-    position: absolute;
-    bottom: 14px;
-    left: 18px;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 11px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.92);
-    letter-spacing: 0.04em;
-    pointer-events: none;
-    line-height: 1;
-    /* 画像なし時は暗い文字に切り替え */
-  }
-  .card-thumb:not(:has(img)) .thumb-date {
-    color: var(--ink-faint);
-  }
-  .thumb-category {
-    position: absolute;
-    bottom: 14px;
-    right: 18px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.88);
-    letter-spacing: 0.12em;
-    background: rgba(0,0,0,0.38);
-    padding: 3px 9px;
-    border-radius: 20px;
-    pointer-events: none;
-    text-transform: uppercase;
-  }
-  .card-thumb:not(:has(img)) .thumb-category {
-    color: var(--ink-muted);
-    background: var(--tag-bg);
-  }
-
-  /* ─── カード本文 ─── */
+  /* 右カラム */
   .card-body {
-    padding: 28px 32px 30px;
+    padding: 0 0 0 28px;
   }
-  .card-meta-row {
+
+  .card-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 6px;
     flex-wrap: wrap;
   }
-  .badge {
-    font-family: 'DM Mono', monospace;
+  .card-period {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .card-category {
     font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 20px;
-  }
-  .badge-success { background: var(--accent); color: #fff; }
-  .badge-neutral { background: var(--tag-bg); color: var(--ink-muted); }
-  .card-raised {
-    font-family: 'DM Mono', monospace;
-    font-size: 17px;
-    font-weight: 300;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-  }
-  .card-title {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 1.5;
-    margin-bottom: 6px;
-    letter-spacing: -0.01em;
-  }
-  .card-title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .card-title a:hover { color: var(--accent); }
-  .card-owner {
-    font-size: 12px;
-    color: var(--ink-faint);
-    margin-bottom: 18px;
-    font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    letter-spacing: 0.04em;
-  }
-  .card-comment {
-    font-size: 13.5px;
-    color: var(--ink);
-    line-height: 1.85;
-    background: var(--accent-light);
-    border-left: 3px solid var(--accent);
-    padding: 13px 16px;
-    border-radius: 0 6px 6px 0;
-    margin-bottom: 20px;
-    font-style: italic;
-  }
-  .comment-label {
-    font-style: normal;
-    font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent);
-    display: block;
-    margin-bottom: 7px;
-    font-family: 'DM Mono', monospace;
+    font-weight: 600;
   }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.55;
+    color: var(--text);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .card-title:hover { color: var(--accent); }
+
+  .card-org {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .card-amount {
+    font-size: 13px;
+    color: var(--sub);
+    margin-bottom: 12px;
+  }
+
+  .card-comment {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.8;
+    background: var(--tag-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+
   .card-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
   }
   .tag {
-    background: var(--tag-bg);
-    color: var(--ink-muted);
-    font-size: 10px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.05em;
-  }
-  .tag.special { background: var(--accent-light); color: var(--accent); }
-
-  footer {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 28px 32px 48px;
-    border-top: 1px solid var(--border);
     font-size: 11px;
-    color: var(--ink-faint);
-    font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    display: flex;
-    justify-content: space-between;
+    padding: 2px 8px;
+    background: var(--tag-bg);
+    color: var(--sub);
+    border-radius: 2px;
+  }
+  .tag-special {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── フッター ── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── レスポンシブ ── */
+  @media (max-width: 600px) {
+    .card {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .card-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
+    .card-body { padding: 0; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <p class="header-eyebrow">Crowdfunding Portfolio</p>
-  <h1>クラウドファンディング<br>プロジェクト実績</h1>
-  <p class="header-desc">
-    CAMPFIRE にてプロデュース・担当した代表的なプロジェクトの一覧です。
-    宇宙開発・アート・社会課題・地域活性化など、幅広いジャンルに関わってきました。
-    ここに掲載しているのはその一部です。
-  </p>
-  <div class="thumb-guide">
-    <strong>サムネイル画像の追加方法：</strong>
-    各プロジェクトのスクリーンショットを撮り、<code>img/</code> フォルダに
-    <code>01_momo.jpg</code> <code>02_deletec.jpg</code> … のように保存すると自動で表示されます。
-    画像がない場合はグレーのプレースホルダーが表示されます。
-  </div>
+  <p class="label">Crowdfunding Portfolio</p>
+  <h1>クラウドファンディング プロジェクト実績</h1>
+  <p class="desc">CAMPFIRE にてプロデュース・担当した代表的なプロジェクトの一覧です。<br>宇宙開発・アート・社会課題・地域活性化など、幅広いジャンルに関わってきました。<br>ここに掲載しているのはその一部です。</p>
 </header>
 
-<nav>
-  <button class="nav-btn active" onclick="filterProjects('all', this)">All</button>
-  <button class="nav-btn" onclick="filterProjects('tech', this)">Tech</button>
-  <button class="nav-btn" onclick="filterProjects('art', this)">Art</button>
-  <button class="nav-btn" onclick="filterProjects('social', this)">Social</button>
-  <button class="nav-btn" onclick="filterProjects('local', this)">Local</button>
-</nav>
+<div class="project-list">
 
-<main>
-<div id="project-grid">
-
-  <!-- ① MOMO2号機 -->
-  <article class="project-card" data-category="tech">
-    <div class="card-thumb" id="thumb-01">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/01_momo.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2017年12月03日 → 2018年02月10日</span>
-      <span class="thumb-category">Technology</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/54332">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-success">105% 達成</span>
-        <span class="card-raised">¥28,426,500</span>
+      <div class="card-meta">
+        <span class="card-period">2017年12月03日 → 2018年02月10日</span>
+        <span class="card-category">Technology</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener">
-          今度こそ宇宙へ！ MOMO2号機をみんなで飛ばそう
-        </a>
-      </h2>
-      <p class="card-owner">インターステラテクノロジズ株式会社</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        日本初の純民間ロケット打ち上げプロジェクト第2弾。前回（初号機）の経験を踏まえた改良版MOMOのクラウドファンディングを担当。「みんなのロケット」というコンセプトが多くの支援者の共感を得て目標を達成。その後MOMO3号機が国内民間初の宇宙到達を実現し、本プロジェクト支援者が歴史的瞬間を共有することとなった。
-      </div>
+      <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener" class="card-title">今度こそ宇宙へ！ MOMO2号機をみんなで飛ばそう</a>
+      <div class="card-org">インターステラテクノロジズ株式会社</div>
+      <div class="card-amount">¥28,426,500</div>
+      <p class="card-comment">日本初の純民間ロケット打ち上げプロジェクト第2弾。前回（初号機）の経験を踏まえた改良版MOMOのクラウドファンディングを担当。「みんなのロケット」というコンセプトが多くの支援者の共感を得て目標を達成。その後MOMO3号機が国内民間初の宇宙到達を実現し、本プロジェクト支援者が歴史的瞬間を共有することとなった。</p>
       <div class="card-tags">
-        <span class="tag">宇宙開発</span>
-        <span class="tag">ロケット</span>
-        <span class="tag">民間宇宙</span>
-        <span class="tag special">CAMPFIREアワード大賞 2018</span>
+        <span class="tag">宇宙開発</span><span class="tag">ロケット</span><span class="tag">民間宇宙</span>
+        <span class="tag tag-special">CAMPFIREアワード大賞 2018</span>
       </div>
     </div>
   </article>
 
-  <!-- ② deleteC -->
-  <article class="project-card" data-category="social">
-    <div class="card-thumb" id="thumb-02">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/02_deletec.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2019年02月04日 → 2019年02月27日</span>
-      <span class="thumb-category">Social Good</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/124546">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-success">133% 達成</span>
-        <span class="card-raised">¥1,598,009</span>
+      <div class="card-meta">
+        <span class="card-period">2019年02月04日 → 2019年02月27日</span>
+        <span class="card-category">Social Good</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/124546" target="_blank" rel="noopener">
-          「deleteC」〜「がんを治せる病気にする」プロジェクトを立ち上げます
-        </a>
-      </h2>
-      <p class="card-owner">DeleteCancerProject</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        31歳でステージ4乳がんを宣告された代表・中島ナオさんによる社会変革プロジェクト。「企業ロゴからCを消す」というビジュアルアクションでがん治療研究への関心を喚起する仕組みを構築。わずか23日間の募集ながら133%を達成し、Forbes・HUFFPOSTなどに多数掲載された。
-      </div>
+      <a href="https://camp-fire.jp/projects/124546" target="_blank" rel="noopener" class="card-title">「deleteC」〜「がんを治せる病気にする」プロジェクトを立ち上げます</a>
+      <div class="card-org">DeleteCancerProject</div>
+      <div class="card-amount">¥1,598,009</div>
+      <p class="card-comment">31歳でステージ4乳がんを宣告された代表・中島ナオさんによる社会変革プロジェクト。「企業ロゴからCを消す」というビジュアルアクションでがん治療研究への関心を喚起する仕組みを構築。わずか23日間の募集でForbes・HUFFPOSTなどに多数掲載された。</p>
       <div class="card-tags">
-        <span class="tag">がん治療</span>
-        <span class="tag">医療</span>
-        <span class="tag">ソーシャルグッド</span>
-        <span class="tag">GoodMorning</span>
+        <span class="tag">がん治療</span><span class="tag">医療</span><span class="tag">ソーシャルグッド</span><span class="tag">GoodMorning</span>
       </div>
     </div>
   </article>
 
-  <!-- ③ 二俣本町駅 -->
-  <article class="project-card" data-category="local">
-    <div class="card-thumb" id="thumb-03">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/03_innmylife.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2019年03月06日 → 2019年04月15日</span>
-      <span class="thumb-category">Local</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/124160">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-neutral">All-in 53%</span>
-        <span class="card-raised">¥1,066,500</span>
+      <div class="card-meta">
+        <span class="card-period">2019年03月06日 → 2019年04月15日</span>
+        <span class="card-category">Local</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/124160" target="_blank" rel="noopener">
-          【無人駅の駅舎をホテルに！】天竜浜名湖鉄道「二俣本町駅」を一日一組限定の宿にする
-        </a>
-      </h2>
-      <p class="card-owner">Akihito Nakatani（中谷明史）</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        静岡県天竜のローカル線・無人駅の駅舎を一日一組限定ホテルにリノベーションするプロジェクト。「地方でもこんなかっこいいことができる」という問いかけが全国の共感を呼んだ。All-in方式で53%達成だったが、その後「駅舎ホテルINN MY LIFE」として正式オープン。地方創生の新しいモデルケースとなっている。
-      </div>
+      <a href="https://camp-fire.jp/projects/124160" target="_blank" rel="noopener" class="card-title">【無人駅の駅舎をホテルに！】天竜浜名湖鉄道「二俣本町駅」を一日一組限定の宿にする</a>
+      <div class="card-org">Akihito Nakatani（中谷明史）</div>
+      <div class="card-amount">¥1,066,500</div>
+      <p class="card-comment">静岡県天竜のローカル線・無人駅の駅舎を一日一組限定ホテルにリノベーションするプロジェクト。「地方でもこんなかっこいいことができる」という問いかけが全国の共感を呼んだ。All-in方式での挑戦だったが、その後「駅舎ホテルINN MY LIFE」として正式オープン。地方創生の新しいモデルケースとなっている。</p>
       <div class="card-tags">
-        <span class="tag">地方創生</span>
-        <span class="tag">ホテル</span>
-        <span class="tag">静岡</span>
-        <span class="tag">ローカル線</span>
-        <span class="tag">リノベーション</span>
+        <span class="tag">地方創生</span><span class="tag">ホテル</span><span class="tag">静岡</span><span class="tag">ローカル線</span><span class="tag">リノベーション</span>
       </div>
     </div>
   </article>
 
-  <!-- ④ 白亜展 -->
-  <article class="project-card" data-category="art">
-    <div class="card-thumb" id="thumb-04">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/04_hakua.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2019年04月04日 → 2019年05月14日</span>
-      <span class="thumb-category">Art</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/143131">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-success">364% 達成</span>
-        <span class="card-raised">¥7,280,111</span>
+      <div class="card-meta">
+        <span class="card-period">2019年04月04日 → 2019年05月14日</span>
+        <span class="card-category">Art</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/143131" target="_blank" rel="noopener">
-          【愛☆まどんな】初のマンガ作品「白亜」の展覧会を開催したい！
-        </a>
-      </h2>
-      <p class="card-owner">STOKE（柿内芳文）</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        アーティスト愛☆まどんな × 漫画家山田玲司 × 編集者柿内芳文による「アートコミックス」という新ジャンルへの挑戦。目標200万円に対し364%（約728万円）を達成し、GW中に開催した白亜展は大盛況となった。『嫌われる勇気』を手がけた編集者が率いるプロジェクトとして、エンタメ×クラウドファンディングの可能性を示した。
-      </div>
+      <a href="https://camp-fire.jp/projects/143131" target="_blank" rel="noopener" class="card-title">【愛☆まどんな】初のマンガ作品「白亜」の展覧会を開催したい！</a>
+      <div class="card-org">STOKE（柿内芳文）</div>
+      <div class="card-amount">¥7,280,111</div>
+      <p class="card-comment">アーティスト愛☆まどんな × 漫画家山田玲司 × 編集者柿内芳文による「アートコミックス」という新ジャンルへの挑戦。GW中に開催した白亜展は大盛況となった。『嫌われる勇気』を手がけた編集者が率いるプロジェクトとして、エンタメ×クラウドファンディングの可能性を示した。</p>
       <div class="card-tags">
-        <span class="tag">アート</span>
-        <span class="tag">マンガ</span>
-        <span class="tag">展覧会</span>
-        <span class="tag special">364% 達成</span>
       </div>
     </div>
   </article>
 
-  <!-- ⑤ 安田現象 -->
-  <article class="project-card" data-category="art">
-    <div class="card-thumb" id="thumb-05">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/05_gensho.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2022年08月26日 → 2022年10月31日</span>
-      <span class="thumb-category">Animation</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/571880">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-success">237% 達成</span>
-        <span class="card-raised">¥23,730,805</span>
+      <div class="card-meta">
+        <span class="card-period">2022年08月26日 → 2022年10月31日</span>
+        <span class="card-category">Animation</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/571880" target="_blank" rel="noopener">
-          アニメ作家・安田現象 初の長編アニメーション監督作品 劇場映画化プロジェクト
-        </a>
-      </h2>
-      <p class="card-owner">Xenotoon（ゼノトゥーン）</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        TikTok250万フォロワーを誇るアニメ作家・安田現象の初長編映画『メイク ア ガール』制作支援プロジェクト。従来の製作委員会方式を避けクリエイターの世界観を守るために少人数スタジオXenotoonと組んだ、新しい映像制作モデル。目標1000万円に対し237%を達成し、SNS世代のクリエイターエコノミーを体現した。
-      </div>
+      <a href="https://camp-fire.jp/projects/571880" target="_blank" rel="noopener" class="card-title">アニメ作家・安田現象 初の長編アニメーション監督作品 劇場映画化プロジェクト</a>
+      <div class="card-org">Xenotoon（ゼノトゥーン）</div>
+      <div class="card-amount">¥23,730,805</div>
+      <p class="card-comment">TikTok250万フォロワーを誇るアニメ作家・安田現象の初長編映画『メイク ア ガール』制作支援プロジェクト。従来の製作委員会方式を避けクリエイターの世界観を守るために少人数スタジオXenotoonと組んだ、新しい映像制作モデル。SNS世代のクリエイターエコノミーを体現した。</p>
       <div class="card-tags">
-        <span class="tag">アニメ</span>
-        <span class="tag">映画</span>
-        <span class="tag">SNSクリエイター</span>
-        <span class="tag">TikTok</span>
-        <span class="tag">クリエイターエコノミー</span>
+        <span class="tag">アニメ</span><span class="tag">映画</span><span class="tag">SNSクリエイター</span><span class="tag">TikTok</span><span class="tag">クリエイターエコノミー</span>
       </div>
     </div>
   </article>
 
-  <!-- ⑥ 海岸線の美術館 -->
-  <article class="project-card" data-category="social art">
-    <div class="card-thumb" id="thumb-06">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/06_seawall.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2022年07月30日 → 2022年08月31日</span>
-      <span class="thumb-category">Social × Art</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/599785">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-success">127% 達成</span>
-        <span class="card-raised">¥10,207,500</span>
+      <div class="card-meta">
+        <span class="card-period">2022年07月30日 → 2022年08月31日</span>
+        <span class="card-category">Social × Art</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/599785" target="_blank" rel="noopener">
-          震災から11年経った今、東北の海岸線に世界に類を見ない野外美術館を立ち上げます。
-        </a>
-      </h2>
-      <p class="card-owner">SEAWALL MUSEUM OGATSU（宮城県石巻市雄勝町）</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        東日本大震災で壊滅的被害を受けた宮城県石巻市雄勝町の巨大防潮堤に、アーティスト安井鷹之介が壁画を描き野外美術館を開館するプロジェクト。GoodMorningにて実施し127%達成。2022年11月に「海岸線の美術館」として正式開館し、震災復興とアートを結びつける新しい地域再生モデルを示した。
-      </div>
+      <a href="https://camp-fire.jp/projects/599785" target="_blank" rel="noopener" class="card-title">震災から11年経った今、東北の海岸線に世界に類を見ない野外美術館を立ち上げます。</a>
+      <div class="card-org">SEAWALL MUSEUM OGATSU（宮城県石巻市雄勝町）</div>
+      <div class="card-amount">¥10,207,500</div>
+      <p class="card-comment">東日本大震災で壊滅的被害を受けた宮城県石巻市雄勝町の巨大防潮堤に、アーティスト安井鷹之介が壁画を描き野外美術館を開館するプロジェクト。GoodMorningにて実施し、2022年11月に「海岸線の美術館」として正式開館した。</p>
       <div class="card-tags">
-        <span class="tag">東北復興</span>
-        <span class="tag">野外美術館</span>
-        <span class="tag">壁画</span>
-        <span class="tag">GoodMorning</span>
-        <span class="tag">宮城</span>
+        <span class="tag">東北復興</span><span class="tag">野外美術館</span><span class="tag">壁画</span><span class="tag">GoodMorning</span><span class="tag">宮城</span>
       </div>
     </div>
   </article>
 
-  <!-- ⑦ 上田優紀 -->
-  <article class="project-card" data-category="art">
-    <div class="card-thumb" id="thumb-07">
-      <div class="thumb-placeholder">
-        <svg class="ph-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M4 28l8-6 6 5 6-8 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="ph-label">img/07_yukiueda.jpg</span>
-      </div>
-      <div class="thumb-overlay"></div>
-      <span class="thumb-date">2024年07月31日 → 2024年09月30日</span>
-      <span class="thumb-category">Photography</span>
-    </div>
+  <article class="card" data-url="https://camp-fire.jp/projects/view/694451">
+    <div class="card-thumb"><div class="thumb-skeleton"></div></div>
     <div class="card-body">
-      <div class="card-meta-row">
-        <span class="badge badge-success">226% 達成</span>
-        <span class="card-raised">¥7,922,555</span>
+      <div class="card-meta">
+        <span class="card-period">2024年07月31日 → 2024年09月30日</span>
+        <span class="card-category">Photography</span>
       </div>
-      <h2 class="card-title">
-        <a href="https://camp-fire.jp/projects/694451" target="_blank" rel="noopener">
-          神話に残る野生動物たちの撮影に挑戦！スピリッツベアとザトウクジラに出会う旅へ！
-        </a>
-      </h2>
-      <p class="card-owner">写真家・上田優紀</p>
-      <div class="card-comment">
-        <span class="comment-label">担当者コメント</span>
-        エベレスト登頂・南極・砂漠など世界の極地を撮影してきた写真家・上田優紀によるプロジェクト。スピリッツベアとザトウクジラという神話に登場する野生動物の撮影に挑戦。226%を達成し、支援者を巻き込みながら「旅のナラティブ」をリアルタイムで共有する形で大きく伸びた。
-      </div>
+      <a href="https://camp-fire.jp/projects/694451" target="_blank" rel="noopener" class="card-title">神話に残る野生動物たちの撮影に挑戦！スピリッツベアとザトウクジラに出会う旅へ！</a>
+      <div class="card-org">写真家・上田優紀</div>
+      <div class="card-amount">¥7,922,555</div>
+      <p class="card-comment">エベレスト登頂・南極・砂漠など世界の極地を撮影してきた写真家・上田優紀によるプロジェクト。スピリッツベアとザトウクジラという神話に登場する野生動物の撮影に挑戦。支援者を巻き込みながら「旅のナラティブ」をリアルタイムで共有する形で大きく広がった。</p>
       <div class="card-tags">
-        <span class="tag">写真</span>
-        <span class="tag">野生動物</span>
-        <span class="tag">自然</span>
-        <span class="tag">エベレスト</span>
-        <span class="tag special">226% 達成</span>
       </div>
     </div>
   </article>
 
 </div>
-</main>
 
-<footer>
-  <span>CAMPFIRE Project Portfolio</span>
-  <span>Partial list of projects handled</span>
-</footer>
+<footer>CAMPFIRE Project Portfolio &nbsp;—&nbsp; Partial list of projects handled</footer>
 
 <script>
-/* ─ フィルター ─ */
-function filterProjects(category, btn) {
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.project-card').forEach(card => {
-    if (category === 'all') {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.toggle('hidden', !card.dataset.category.includes(category));
-    }
-  });
+/* OGP サムネイル自動取得
+   allorigins.win (無料 CORS プロキシ) 経由で各 CAMPFIRE ページの HTML を取得し
+   og:image を card-thumb に差し込む。失敗時はプレースホルダー表示。 */
+
+const PROXY = 'https://api.allorigins.win/get?url=';
+
+function showPlaceholder(thumb) {
+  const sk = thumb.querySelector('.thumb-skeleton');
+  const ph = document.createElement('div');
+  ph.className = 'thumb-placeholder';
+  ph.textContent = 'NO IMAGE';
+  (sk || thumb).replaceWith ? (sk ? sk.replaceWith(ph) : thumb.appendChild(ph)) : thumb.appendChild(ph);
 }
 
-/*
-  ─ 画像の読み込み方法 ─
-  このHTMLファイルと同じフォルダに img/ フォルダを作り、
-  以下のファイル名で画像を保存すると自動で表示されます：
+async function loadOgImage(card) {
+  const pageUrl = card.dataset.url;
+  const thumb   = card.querySelector('.card-thumb');
+  try {
+    const res = await fetch(PROXY + encodeURIComponent(pageUrl), {
+      signal: AbortSignal.timeout(10000)
+    });
+    if (!res.ok) throw new Error('proxy ' + res.status);
+    const { contents } = await res.json();
+    const m =
+      contents.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+      contents.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+    if (!m) throw new Error('no og:image');
+    const img = new Image();
+    img.alt = card.querySelector('.card-title')?.textContent?.trim() || '';
+    img.onload = () => {
+      const sk = thumb.querySelector('.thumb-skeleton');
+      if (sk) sk.replaceWith(img); else thumb.prepend(img);
+    };
+    img.onerror = () => showPlaceholder(thumb);
+    img.src = m[1];
+  } catch {
+    showPlaceholder(thumb);
+  }
+}
 
-    img/01_momo.jpg
-    img/02_deletec.jpg
-    img/03_innmylife.jpg
-    img/04_hakua.jpg
-    img/05_gensho.jpg
-    img/06_seawall.jpg
-    img/07_yukiueda.jpg
-
-  各プロジェクトのCAMPFIREページをブラウザで開き、
-  メインビジュアルをスクリーンショット or 右クリック保存してください。
-  推奨サイズ：横1200px 以上、縦600px 以上（横長が望ましい）
-*/
-const thumbMap = {
-  'thumb-01': 'img/01_momo.jpg',
-  'thumb-02': 'img/02_deletec.jpg',
-  'thumb-03': 'img/03_innmylife.jpg',
-  'thumb-04': 'img/04_hakua.jpg',
-  'thumb-05': 'img/05_gensho.jpg',
-  'thumb-06': 'img/06_seawall.jpg',
-  'thumb-07': 'img/07_yukiueda.jpg',
-};
-
-Object.entries(thumbMap).forEach(([id, src]) => {
-  const container = document.getElementById(id);
-  if (!container) return;
-  const img = new Image();
-  img.onload = () => {
-    const ph = container.querySelector('.thumb-placeholder');
-    if (ph) ph.remove();
-    img.alt = '';
-    container.insertBefore(img, container.querySelector('.thumb-overlay'));
-  };
-  img.src = src;
-});
+// 200ms ずつずらして並列取得
+document.querySelectorAll('.card[data-url]').forEach((card, i) =>
+  setTimeout(() => loadOgImage(card), i * 200)
+);
 </script>
 </body>
 </html>
