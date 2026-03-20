@@ -9,7 +9,6 @@
 
   :root {
     --bg:      #f8f8f6;
-    --surface: #ffffff;
     --border:  #e0e0dc;
     --text:    #1a1a1a;
     --sub:     #555550;
@@ -21,7 +20,6 @@
   @media (prefers-color-scheme: dark) {
     :root {
       --bg:      #141412;
-      --surface: #1e1e1c;
       --border:  #2e2e2a;
       --text:    #f0f0ec;
       --sub:     #aaaaA4;
@@ -56,7 +54,6 @@
     font-size: clamp(20px, 3vw, 28px);
     font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--text);
     margin-bottom: 16px;
   }
   header .desc {
@@ -75,10 +72,11 @@
 
   .card {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 200px 1fr;
+    gap: 0 28px;
     border-bottom: 1px solid var(--border);
     padding: 36px 0;
-    gap: 0;
+    align-items: start;
   }
   .card:first-child { border-top: 1px solid var(--border); margin-top: 40px; }
 
@@ -86,28 +84,23 @@
     display: block;
     width: 200px;
     height: 134px;
-    flex-shrink: 0;
-    align-self: start;
   }
   .card-thumb {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 134px;
     background: var(--thumb-bg);
-    position: relative;
     overflow: hidden;
   }
   .card-thumb img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     transition: opacity 0.2s;
   }
-  .card-thumb-link:hover .card-thumb img { opacity: 0.85; }
-  .thumb-placeholder {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 11px; letter-spacing: 0.1em;
-  }
+  .card-thumb-link:hover img { opacity: 0.85; }
 
-  .card-body { padding: 0 0 0 28px; }
+  .card-body {}
 
   .card-meta {
     display: flex;
@@ -116,42 +109,63 @@
     margin-bottom: 6px;
     flex-wrap: wrap;
   }
-  .card-period { font-size: 11px; color: var(--muted); letter-spacing: 0.02em; }
+  .card-period { font-size: 11px; color: var(--muted); }
   .card-category {
-    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
   }
   .card-title {
-    font-size: 15px; font-weight: 700; line-height: 1.55;
-    color: var(--text); text-decoration: none; display: block; margin-bottom: 4px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.55;
+    color: var(--text);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
   }
   .card-title:hover { color: var(--accent); }
-  .card-org { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .card-org { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
   .card-amount { font-size: 13px; color: var(--sub); margin-bottom: 12px; }
   .card-comment {
-    font-size: 13px; color: var(--sub); line-height: 1.8;
-    background: var(--tag-bg); border-radius: 8px;
-    padding: 12px 14px; margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.8;
+    background: var(--tag-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
   }
   .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
-    font-size: 11px; padding: 2px 8px;
-    background: var(--tag-bg); color: var(--sub); border-radius: 2px;
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--tag-bg);
+    color: var(--sub);
+    border-radius: 2px;
   }
   .tag-special {
-    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
   }
 
   footer {
-    text-align: center; padding: 24px; font-size: 11px;
-    color: var(--muted); letter-spacing: 0.1em; border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    border-top: 1px solid var(--border);
   }
 
   @media (max-width: 600px) {
-    .card { grid-template-columns: 1fr; gap: 16px; }
-    .card-thumb-link { width: 100%; height: auto; aspect-ratio: 16/9; }
-    .card-thumb { width: 100%; height: 100%; }
-    .card-body { padding: 0; }
+    .card { grid-template-columns: 1fr; }
+    .card-thumb-link { width: 100%; height: auto; }
+    .card-thumb { width: 100%; height: auto; aspect-ratio: 3/2; }
+    .card-thumb img { height: 100%; }
   }
 </style>
 </head>
@@ -167,7 +181,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="01_momo.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="01_momo.jpg" alt="MOMO2号機"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
@@ -187,7 +201,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/124546" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="02_deletec.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="02_deletec.jpg" alt="deleteC"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
@@ -206,7 +220,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/124160" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="03_innmylife.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="03_innmylife.jpg" alt="INN MY LIFE"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
@@ -225,7 +239,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/143131" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="04_hakua.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="04_hakua.jpg" alt="白亜"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
@@ -244,7 +258,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/571880" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="05_gensho.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="05_gensho.jpg" alt="安田現象"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
@@ -263,7 +277,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/599785" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="06_seawall.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="06_seawall.jpg" alt="SEAWALL MUSEUM"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
@@ -282,7 +296,7 @@
 
   <article class="card">
     <a href="https://camp-fire.jp/projects/694451" target="_blank" rel="noopener" class="card-thumb-link">
-      <div class="card-thumb"><img src="07_yukiueda.jpg" alt="" onerror="this.parentElement.innerHTML='<div class=\'thumb-placeholder\'>NO IMAGE</div>'"></div>
+      <div class="card-thumb"><img src="07_yukiueda.jpg" alt="上田優紀"></div>
     </a>
     <div class="card-body">
       <div class="card-meta">
