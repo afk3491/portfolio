@@ -299,7 +299,7 @@
 
 <script>
 // comments/xxxxx.html を fetch して .card-comment に挿入する
-document.querySelectorAll('.card-comment[data-comment]').forEach(el => {
+document.querySelectorAll('[data-comment]').forEach(el => {
   const id = el.dataset.comment;
   fetch(`comments/${id}.html`)
     .then(r => {
@@ -308,11 +308,11 @@ document.querySelectorAll('.card-comment[data-comment]').forEach(el => {
     })
     .then(html => {
       if (!html.trim()) { el.style.display = 'none'; return; }
-      // details要素に変換して折りたたみ可能に
-      el.outerHTML = `<details class="card-comment" data-comment="${id}">
-        <summary>詳細</summary>
-        <div class="comment-body">${html}</div>
-      </details>`;
+      // details要素を生成して差し替え
+      const details = document.createElement('details');
+      details.className = 'card-comment';
+      details.innerHTML = `<summary>詳細</summary><div class="comment-body">${html}</div>`;
+      el.replaceWith(details);
     })
     .catch(() => {
       el.style.display = 'none';
