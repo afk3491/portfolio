@@ -310,7 +310,7 @@ document.querySelectorAll('.card-comment[data-comment]').forEach(el => {
       if (!html.trim()) { el.style.display = 'none'; return; }
       // details要素に変換して折りたたみ可能に
       el.outerHTML = `<details class="card-comment" data-comment="${id}">
-        <summary>担当者コメント</summary>
+        <summary>詳細</summary>
         <div class="comment-body">${html}</div>
       </details>`;
     })
