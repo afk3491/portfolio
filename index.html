@@ -59,6 +59,27 @@
 <div class="project-list">
   <article class="card">
     <div class="card-top">
+      <a href="https://camp-fire.jp/projects/40518" target="_blank" rel="noopener" class="card-thumb-link">
+        <div class="card-thumb"><img src="00_handwritten.jpg" alt="HAND-WRITTEN SHOWCASE"></div>
+      </a>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-period">2017年08月25日 → 2017年09月28日</span>
+          <span class="card-category">Art</span>
+        </div>
+        <a href="https://camp-fire.jp/projects/40518" target="_blank" rel="noopener" class="card-title">手描きアーティストの祭典「HAND-WRITTEN SHOWCASE」を開催！</a>
+        <div class="card-org">CHALKBOY</div>
+        <div class="card-tags"><span class="tag">アート</span><span class="tag">展覧会</span><span class="tag">レタリング</span><span class="tag">カリグラフィー</span></div>
+        <div class="card-stats">
+          <span class="card-amount">¥2,008,000</span>
+          <span class="card-supporters">183人が支援</span>
+        </div>
+      </div>
+    </div>
+    <p class="card-comment">（担当者コメントをここに入力）</p>
+  </article>
+  <article class="card">
+    <div class="card-top">
       <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="01_momo.jpg" alt="MOMO2号機"></div>
       </a>
@@ -72,7 +93,7 @@
         <div class="card-tags"><span class="tag">宇宙開発</span><span class="tag">ロケット</span><span class="tag">民間宇宙</span><span class="tag tag-special">CAMPFIREアワード大賞 2018</span></div>
         <div class="card-stats">
           <span class="card-amount">¥28,426,500</span>
-          <span class="card-supporters" data-project-id="54332">…</span>
+          <span class="card-supporters">924人が支援</span>
         </div>
       </div>
     </div>
@@ -93,7 +114,7 @@
         <div class="card-tags"><span class="tag">がん治療</span><span class="tag">医療</span><span class="tag">ソーシャルグッド</span><span class="tag">GoodMorning</span></div>
         <div class="card-stats">
           <span class="card-amount">¥1,598,009</span>
-          <span class="card-supporters" data-project-id="124546">…</span>
+          <span class="card-supporters">161人が支援</span>
         </div>
       </div>
     </div>
@@ -114,7 +135,7 @@
         <div class="card-tags"><span class="tag">地方創生</span><span class="tag">ホテル</span><span class="tag">静岡</span><span class="tag">ローカル線</span><span class="tag">リノベーション</span></div>
         <div class="card-stats">
           <span class="card-amount">¥1,066,500</span>
-          <span class="card-supporters" data-project-id="124160">…</span>
+          <span class="card-supporters">152人が支援</span>
         </div>
       </div>
     </div>
@@ -135,7 +156,7 @@
         <div class="card-tags"><span class="tag">アート</span><span class="tag">マンガ</span><span class="tag">展覧会</span></div>
         <div class="card-stats">
           <span class="card-amount">¥7,280,111</span>
-          <span class="card-supporters" data-project-id="143131">…</span>
+          <span class="card-supporters">893人が支援</span>
         </div>
       </div>
     </div>
@@ -156,7 +177,7 @@
         <div class="card-tags"><span class="tag">アニメ</span><span class="tag">映画</span><span class="tag">SNSクリエイター</span><span class="tag">TikTok</span><span class="tag">クリエイターエコノミー</span></div>
         <div class="card-stats">
           <span class="card-amount">¥23,730,805</span>
-          <span class="card-supporters" data-project-id="571880">…</span>
+          <span class="card-supporters">1,652人が支援</span>
         </div>
       </div>
     </div>
@@ -177,7 +198,7 @@
         <div class="card-tags"><span class="tag">東北復興</span><span class="tag">野外美術館</span><span class="tag">壁画</span><span class="tag">GoodMorning</span><span class="tag">宮城</span></div>
         <div class="card-stats">
           <span class="card-amount">¥10,207,500</span>
-          <span class="card-supporters" data-project-id="599785">…</span>
+          <span class="card-supporters">335人が支援</span>
         </div>
       </div>
     </div>
@@ -198,7 +219,7 @@
         <div class="card-tags"><span class="tag">写真</span><span class="tag">野生動物</span><span class="tag">自然</span><span class="tag">エベレスト</span></div>
         <div class="card-stats">
           <span class="card-amount">¥7,922,555</span>
-          <span class="card-supporters" data-project-id="694451">…</span>
+          <span class="card-supporters">632人が支援</span>
         </div>
       </div>
     </div>
@@ -206,28 +227,6 @@
   </article>
 </div>
 <footer>CAMPFIRE Project Portfolio &nbsp;—&nbsp; Partial list of projects handled</footer>
-<script>
-const PROXY = 'https://api.allorigins.win/get?url=';
 
-async function loadSupporters(el) {
-  const id = el.dataset.projectId;
-  try {
-    const res = await fetch(PROXY + encodeURIComponent('https://camp-fire.jp/projects/' + id + '/widget'), {
-      signal: AbortSignal.timeout(10000)
-    });
-    if (!res.ok) throw new Error();
-    const { contents } = await res.json();
-    const m = contents.match(/参加者([0-9,]+)人/);
-    if (!m) throw new Error();
-    el.textContent = m[1] + '人が支援';
-  } catch {
-    el.textContent = '';
-  }
-}
-
-document.querySelectorAll('.card-supporters[data-project-id]').forEach((el, i) =>
-  setTimeout(() => loadSupporters(el), i * 300)
-);
-</script>
 </body>
 </html>
