@@ -161,6 +161,22 @@
     font-family:'DM Mono','Courier New',monospace;
   }
 
+  .tl-section { border-bottom: 0.5px solid var(--border); }
+  .tl-section:last-child { border-bottom: none; }
+  .tl-section-head {
+    display:flex; align-items:center; gap:14px;
+    padding:1rem 1.25rem; background:var(--tag-bg);
+  }
+  .tl-section-title { font-size:14px; font-weight:700; color:var(--text); }
+  #concur-bar.highlight {
+    opacity: 1 !important;
+    height: 3px;
+    box-shadow: 0 0 0 2px rgba(55,138,221,0.25);
+  }
+  .tl-concur.highlight .tl-concur-label {
+    color: #378ADD;
+    font-weight: 700;
+  }
   @keyframes tl-fi { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
   .tl-fa { animation:tl-fi .2s ease; }
 
@@ -233,7 +249,8 @@
     <!-- 兼務ライン: Phase2a と同じ範囲 left:4.9% width:6.1% -->
     <div class="tl-concur" style="left:4.9%;width:6.1%;">
       <div class="tl-concur-label">CS 兼務</div>
-      <div class="tl-concur-bar" style="background:#378ADD;"></div>
+      <div class="tl-concur-bar" id="concur-bar" style="background:#378ADD;"></div>
+      <div class="tl-concur-label" id="concur-label2" style="font-size:10px;color:var(--muted);text-align:center;margin-top:3px;display:none;">← 兼務期間</div>
     </div>
 
     <!-- 透明クリックゾーン -->
@@ -494,18 +511,35 @@ var tlPhases = [
     ]
   },
   {
-    name: 'CAMPFIRE Local',
-    role: '責任者（カスタマーサクセス 兼務）',
-    period: '2017年10月 — 2018年3月',
-    color: '#1D9E75', bb: '#E1F5EE', bt: '#085041',
-    badge: '地域特化 CF／パートナー管理',
-    logos: [{src:TL_LOGOS.cf_local,w:130},{src:TL_LOGOS.cf_old,w:120}],
-    items: [
-      '全国のレベニューシェア契約パートナーの開拓・管理',
-      'パートナー案件の掲載審査・システムサポート',
-      '契約金・手数料按分の経理処理',
-      'パートナー・起案者とのトラブル対応',
-      'カスタマーサクセス業務と兼務'
+    name: 'CAMPFIRE Local + CS兼務',
+    color: '#1D9E75',
+    sections: [
+      {
+        name: 'CAMPFIRE Local',
+        role: '責任者',
+        period: '2017年10月 — 2018年3月',
+        bb: '#E1F5EE', bt: '#085041',
+        badge: '地域特化 CF／パートナー管理',
+        logos: [{src:TL_LOGOS.cf_local,w:130}],
+        items: [
+          '全国のレベニューシェア契約パートナーの開拓・管理',
+          'パートナー案件の掲載審査・システムサポート',
+          '契約金・手数料按分の経理処理',
+          'パートナー・起案者とのトラブル対応'
+        ]
+      },
+      {
+        name: 'カスタマーサクセス（兼務）',
+        role: 'CS担当',
+        period: '2017年10月 — 2018年3月',
+        bb: '#E6F1FB', bt: '#0C447C',
+        badge: 'CS／兼務',
+        logos: [{src:TL_LOGOS.cf_old,w:120}],
+        items: [
+          'プロジェクトオーナーへの掲載・運営サポート',
+          'CAMPFIREプラットフォーム上の問い合わせ対応'
+        ]
+      }
     ]
   },
   {
@@ -560,22 +594,57 @@ function tlSel(i) {
   // ラベルのアクティブ色
   document.querySelectorAll('.tl-pname').forEach(function(n){ n.classList.remove('active'); });
   document.querySelectorAll('.tl-pname')[i] && document.querySelectorAll('.tl-pname')[i].classList.add('active');
+  // 兼務ライン強調（Phase2a = index 1 のときのみ）
+  var concurBar = document.getElementById('concur-bar');
+  var concurWrap = concurBar && concurBar.parentElement;
+  if (concurBar) {
+    if (i === 1) {
+      concurBar.classList.add('highlight');
+      if (concurWrap) concurWrap.classList.add('highlight');
+    } else {
+      concurBar.classList.remove('highlight');
+      if (concurWrap) concurWrap.classList.remove('highlight');
+    }
+  }
   var p = tlPhases[i];
   var logoHtml = p.logos.map(function(item){
     return '<div class="tl-logo"><img src="' + item.src + '" style="max-width:' + item.w + 'px;"></div>';
   }).join('');
-  panel.innerHTML =
-    '<div class="tl-panel-head">' +
-      '<div class="tl-logo-wrap">' + logoHtml + '</div>' +
-      '<div>' +
-        '<div class="tl-panel-title">' + p.name + '</div>' +
-        '<div class="tl-panel-sub">' + p.role + ' &nbsp;|&nbsp; ' + p.period + '</div>' +
-        '<span class="tl-badge" style="background:' + p.bb + ';color:' + p.bt + ';">' + p.badge + '</span>' +
+  var sectionsHtml = '';
+  if (p.sections) {
+    sectionsHtml = p.sections.map(function(sec) {
+      var secLogoHtml = sec.logos ? sec.logos.map(function(item){
+        return '<div class="tl-logo"><img src="' + item.src + '" style="max-width:' + item.w + 'px;"></div>';
+      }).join('') : '';
+      return '<div class="tl-section">' +
+        '<div class="tl-section-head">' +
+          (secLogoHtml ? '<div class="tl-logo-wrap">' + secLogoHtml + '</div>' : '') +
+          '<div>' +
+            '<div class="tl-section-title">' + sec.name + '</div>' +
+            '<div class="tl-panel-sub">' + sec.role + ' &nbsp;|&nbsp; ' + sec.period + '</div>' +
+            '<span class="tl-badge" style="background:' + sec.bb + ';color:' + sec.bt + ';">' + sec.badge + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tl-panel-body"><ul>' +
+          sec.items.map(function(x){ return '<li>' + x + '</li>'; }).join('') +
+        '</ul></div>' +
+      '</div>';
+    }).join('');
+  }
+
+  panel.innerHTML = p.sections
+    ? sectionsHtml
+    : '<div class="tl-panel-head">' +
+        '<div class="tl-logo-wrap">' + logoHtml + '</div>' +
+        '<div>' +
+          '<div class="tl-panel-title">' + p.name + '</div>' +
+          '<div class="tl-panel-sub">' + p.role + ' &nbsp;|&nbsp; ' + p.period + '</div>' +
+          '<span class="tl-badge" style="background:' + p.bb + ';color:' + p.bt + ';">' + p.badge + '</span>' +
+        '</div>' +
       '</div>' +
-    '</div>' +
-    '<div class="tl-panel-body"><ul>' +
-      p.items.map(function(x){ return '<li>' + x + '</li>'; }).join('') +
-    '</ul></div>';
+      '<div class="tl-panel-body"><ul>' +
+        p.items.map(function(x){ return '<li>' + x + '</li>'; }).join('') +
+      '</ul></div>';
   panel.classList.add('tl-fa');
   setTimeout(function(){ panel.classList.remove('tl-fa'); }, 250);
 }
