@@ -29,26 +29,34 @@
     max-width:860px; margin:0 auto; padding:56px 24px 0;
   }
   .timeline-section .section-label {
-    font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
-    color:var(--muted); margin-bottom:32px; text-align:center;
+    font-size:13px; letter-spacing:0.15em; text-transform:uppercase;
+    color:#1a1a1a; margin-bottom:32px; text-align:center;
+    display:inline-block;
+    background:#E6FC03; padding:4px 14px; border-radius:2px;
+  }
+  .timeline-section {
+    text-align:center;
+  }
+  .timeline-section > .section-label {
+    display:inline-block;
   }
 
   /* 軸 */
   .tl-track {
     position:relative; height:2px; background:var(--border);
-    margin:80px 0 0;
+    margin:130px 0 0;
   }
 
   /* 兼務ライン */
   .tl-concur {
-    position:absolute; top:-40px;
+    position:absolute; top:-58px;
   }
   .tl-concur-bar {
     height:2px; border-radius:1px; opacity:.5;
   }
   .tl-concur-label {
-    font-size:9px; color:var(--muted); white-space:nowrap;
-    margin-bottom:3px; text-align:center;
+    font-size:10px; color:var(--muted); white-space:nowrap;
+    margin-bottom:4px; text-align:center;
     font-family:'DM Mono','Courier New',monospace;
   }
 
@@ -70,12 +78,12 @@
 
   /* ラベル上 */
   .tl-label-top {
-    position:absolute; bottom:24px; transform:translateX(-50%);
+    position:absolute; bottom:34px; transform:translateX(-50%);
     text-align:center; cursor:pointer; white-space:nowrap;
   }
   /* ラベル下 */
   .tl-label-btm {
-    position:absolute; top:24px; transform:translateX(-50%);
+    position:absolute; top:20px; transform:translateX(-50%);
     text-align:center; cursor:pointer; white-space:nowrap;
   }
   .tl-pname {
@@ -88,7 +96,7 @@
 
   /* 年目盛り */
   .tl-year {
-    position:absolute; top:10px; transform:translateX(-50%);
+    position:absolute; top:70px; transform:translateX(-50%);
     font-size:10px; color:var(--muted);
     font-family:'DM Mono','Courier New',monospace;
   }
@@ -133,8 +141,14 @@
     border-top:1px solid var(--border);
   }
   .section-divider .section-label2 {
-    font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
-    color:var(--muted); padding-top:40px; margin-bottom:0; text-align:center;
+    font-size:13px; letter-spacing:0.15em; text-transform:uppercase;
+    color:#1a1a1a; padding-top:40px; margin-bottom:0; text-align:center;
+    display:inline-block;
+    background:#E6FC03; padding:4px 14px 4px; border-radius:2px;
+    margin-top:40px;
+  }
+  .section-divider {
+    text-align:center;
   }
 
   /* プロジェクトリスト */
