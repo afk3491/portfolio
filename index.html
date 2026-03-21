@@ -230,43 +230,51 @@
   <div class="tl-outer">
     <div class="tl-axis"></div>
 
-    <!-- 透明ホバーゾーン -->
-    <div class="tl-zone" style="left:0%;width:4.9%;"       onmouseenter="tlSel(0)"></div>
-    <div class="tl-zone" style="left:4.9%;width:18.3%;"    onmouseenter="tlSel(1)"></div>
-    <div class="tl-zone" style="left:23.2%;width:31.7%;"   onmouseenter="tlSel(2)"></div>
-    <div class="tl-zone" style="left:56.1%;width:43.9%;"   onmouseenter="tlSel(3)"></div>
-
-    <!-- 兼務ライン -->
+    <!-- 兼務ライン: Phase2a と同じ範囲 left:4.9% width:6.1% -->
     <div class="tl-concur" style="left:4.9%;width:6.1%;">
-      <div class="tl-concur-label">カスタマーサクセス 兼務</div>
+      <div class="tl-concur-label">CS 兼務</div>
       <div class="tl-concur-bar" style="background:#378ADD;"></div>
     </div>
 
-    <!-- Phase 1: CAMPFIRE（上段） -->
-    <div class="tl-bar" style="left:0%;width:4.9%;background:#7F77DD;"></div>
-    <div class="tl-dot" style="left:0%;background:#7F77DD;"></div>
-    <div class="tl-label-top" style="left:2.4%;">
+    <!-- 透明クリックゾーン -->
+    <div class="tl-zone" style="left:0%;width:4.9%;"       onmouseenter="tlSel(0)"></div>
+    <div class="tl-zone" style="left:4.9%;width:6.1%;"     onmouseenter="tlSel(1)"></div>
+    <div class="tl-zone" style="left:11%;width:12.2%;"     onmouseenter="tlSel(2)"></div>
+    <div class="tl-zone" style="left:23.2%;width:31.7%;"   onmouseenter="tlSel(3)"></div>
+    <div class="tl-zone" style="left:56.1%;width:43.9%;"   onmouseenter="tlSel(4)"></div>
+
+    <!-- Phase 1: CAMPFIRE 0〜4.9% -->
+    <div class="tl-bar" style="left:0%;width:4.9%;background:#7F77DD;" onmouseenter="tlSel(0)"></div>
+    <div class="tl-dot" style="left:0%;background:#7F77DD;" onmouseenter="tlSel(0)"></div>
+    <div class="tl-label-top" style="left:2.4%;" onmouseenter="tlSel(0)">
       <div class="tl-pname">CAMPFIRE</div>
     </div>
 
-    <!-- Phase 2: Local→FAAVO（下段） -->
-    <div class="tl-bar" style="left:4.9%;width:18.3%;background:#1D9E75;"></div>
-    <div class="tl-dot" style="left:4.9%;background:#1D9E75;"></div>
-    <div class="tl-label-btm" style="left:14%;">
-      <div class="tl-pname">CAMPFIRE Local → FAAVO</div>
+    <!-- Phase 2a: CAMPFIRE Local + CS兼務 4.9〜11% -->
+    <div class="tl-bar" style="left:4.9%;width:6.1%;background:#1D9E75;" onmouseenter="tlSel(1)"></div>
+    <div class="tl-dot" style="left:4.9%;background:#1D9E75;" onmouseenter="tlSel(1)"></div>
+    <div class="tl-label-btm" style="left:8%;" onmouseenter="tlSel(1)">
+      <div class="tl-pname">CAMPFIRE Local</div>
     </div>
 
-    <!-- Phase 3: EXODUS（上段） -->
-    <div class="tl-bar" style="left:23.2%;width:31.7%;background:#D85A30;"></div>
-    <div class="tl-dot" style="left:23.2%;background:#D85A30;"></div>
-    <div class="tl-label-top" style="left:39%;">
+    <!-- Phase 2b: FAAVO 11〜23.2% -->
+    <div class="tl-bar" style="left:11%;width:12.2%;background:#2DBF8A;" onmouseenter="tlSel(2)"></div>
+    <div class="tl-dot" style="left:11%;background:#2DBF8A;" onmouseenter="tlSel(2)"></div>
+    <div class="tl-label-top" style="left:17%;" onmouseenter="tlSel(2)">
+      <div class="tl-pname">FAAVO by CAMPFIRE</div>
+    </div>
+
+    <!-- Phase 3: EXODUS 23.2〜54.9% -->
+    <div class="tl-bar" style="left:23.2%;width:31.7%;background:#D85A30;" onmouseenter="tlSel(3)"></div>
+    <div class="tl-dot" style="left:23.2%;background:#D85A30;" onmouseenter="tlSel(3)"></div>
+    <div class="tl-label-btm" style="left:39%;" onmouseenter="tlSel(3)">
       <div class="tl-pname">EXODUS / 新規事業</div>
     </div>
 
-    <!-- Phase 4: CS（下段） -->
-    <div class="tl-bar" style="left:56.1%;width:43.9%;background:#378ADD;"></div>
-    <div class="tl-dot" style="left:56.1%;background:#378ADD;"></div>
-    <div class="tl-label-btm" style="left:77%;">
+    <!-- Phase 4: CS 56.1〜100% -->
+    <div class="tl-bar" style="left:56.1%;width:43.9%;background:#378ADD;" onmouseenter="tlSel(4)"></div>
+    <div class="tl-dot" style="left:56.1%;background:#378ADD;" onmouseenter="tlSel(4)"></div>
+    <div class="tl-label-top" style="left:77%;" onmouseenter="tlSel(4)">
       <div class="tl-pname">カスタマーサクセス</div>
     </div>
 
@@ -486,18 +494,33 @@ var tlPhases = [
     ]
   },
   {
-    name: 'CAMPFIRE Local → FAAVO by CAMPFIRE',
-    role: '責任者（カスタマーサクセス兼務：〜2018年3月）',
-    period: '2017年10月 — 2019年1月',
+    name: 'CAMPFIRE Local',
+    role: '責任者（カスタマーサクセス 兼務）',
+    period: '2017年10月 — 2018年3月',
     color: '#1D9E75', bb: '#E1F5EE', bt: '#085041',
     badge: '地域特化 CF／パートナー管理',
-    logos: [{src:TL_LOGOS.cf_local,w:130},{src:TL_LOGOS.faavo,w:110}],
+    logos: [{src:TL_LOGOS.cf_local,w:130},{src:TL_LOGOS.cf_old,w:120}],
     items: [
       '全国のレベニューシェア契約パートナーの開拓・管理',
       'パートナー案件の掲載審査・システムサポート',
       '契約金・手数料按分の経理処理',
       'パートナー・起案者とのトラブル対応',
-      '2018年4月 FAAVO事業譲受によりFAAVO by CAMPFIREへ完全異動'
+      'カスタマーサクセス業務と兼務'
+    ]
+  },
+  {
+    name: 'FAAVO by CAMPFIRE',
+    role: '責任者',
+    period: '2018年4月 — 2019年1月',
+    color: '#2DBF8A', bb: '#E1F5EE', bt: '#085041',
+    badge: '地域特化 CF／パートナー管理',
+    logos: [{src:TL_LOGOS.faavo,w:110}],
+    items: [
+      '2018年4月 FAAVO事業譲受によりFAAVO by CAMPFIREへ完全異動',
+      '全国パートナーネットワークの継続管理・運営',
+      'パートナー案件の掲載審査・システムサポート',
+      '契約金・手数料按分の経理処理',
+      'パートナー・起案者とのトラブル対応'
     ]
   },
   {
