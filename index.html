@@ -590,11 +590,15 @@ var tlPhases = [
 function tlSel(i) {
   var panel = document.getElementById('tl-panel');
   document.querySelectorAll('.tl-bar').forEach(function(b){ b.classList.remove('on'); });
-  document.querySelectorAll('.tl-bar')[i].classList.add('on');
-  // ラベルのアクティブ色
+  var bars = document.querySelectorAll('.tl-bar');
+  if (bars[i]) bars[i].classList.add('on');
+
+  // アクティブラベル色
   document.querySelectorAll('.tl-pname').forEach(function(n){ n.classList.remove('active'); });
-  document.querySelectorAll('.tl-pname')[i] && document.querySelectorAll('.tl-pname')[i].classList.add('active');
-  // 兼務ライン強調（Phase2a = index 1 のときのみ）
+  var pnames = document.querySelectorAll('.tl-pname');
+  if (pnames[i]) pnames[i].classList.add('active');
+
+  // 兼務ライン強調（Phase2a = index 1）
   var concurBar = document.getElementById('concur-bar');
   var concurWrap = concurBar && concurBar.parentElement;
   if (concurBar) {
@@ -606,13 +610,12 @@ function tlSel(i) {
       if (concurWrap) concurWrap.classList.remove('highlight');
     }
   }
+
   var p = tlPhases[i];
-  var logoHtml = p.logos.map(function(item){
-    return '<div class="tl-logo"><img src="' + item.src + '" style="max-width:' + item.w + 'px;"></div>';
-  }).join('');
-  var sectionsHtml = '';
+
+  // sections形式（2セクション）
   if (p.sections) {
-    sectionsHtml = p.sections.map(function(sec) {
+    panel.innerHTML = p.sections.map(function(sec) {
       var secLogoHtml = sec.logos ? sec.logos.map(function(item){
         return '<div class="tl-logo"><img src="' + item.src + '" style="max-width:' + item.w + 'px;"></div>';
       }).join('') : '';
@@ -630,11 +633,14 @@ function tlSel(i) {
         '</ul></div>' +
       '</div>';
     }).join('');
-  }
 
-  panel.innerHTML = p.sections
-    ? sectionsHtml
-    : '<div class="tl-panel-head">' +
+  // 通常形式（1セクション）
+  } else {
+    var logoHtml = p.logos.map(function(item){
+      return '<div class="tl-logo"><img src="' + item.src + '" style="max-width:' + item.w + 'px;"></div>';
+    }).join('');
+    panel.innerHTML =
+      '<div class="tl-panel-head">' +
         '<div class="tl-logo-wrap">' + logoHtml + '</div>' +
         '<div>' +
           '<div class="tl-panel-title">' + p.name + '</div>' +
@@ -645,6 +651,8 @@ function tlSel(i) {
       '<div class="tl-panel-body"><ul>' +
         p.items.map(function(x){ return '<li>' + x + '</li>'; }).join('') +
       '</ul></div>';
+  }
+
   panel.classList.add('tl-fa');
   setTimeout(function(){ panel.classList.remove('tl-fa'); }, 250);
 }
