@@ -31,27 +31,62 @@
   }
   .timeline-section .section-label {
     font-size:13px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
-    color:#1a1a1a; margin-bottom:0; text-align:center;
+    color:#1a1a1a; margin-bottom:0;
     display:inline-block;
     background:#E6FC03; padding:4px 14px; border-radius:2px;
   }
+
+  /* tl-outer: タイムライン全体のコンテナ
+     上から: フェーズ名(20px) + 期間(16px) + gap(8px) + 兼務ライン(24px) + gap(12px) = 80px
+     下から: gap(16px) + 下段ラベル(36px) + gap(16px) + 年目盛り(16px) = 84px          */
   .tl-outer {
     position:relative;
-    /* 上: 兼務ライン + フェーズ名+日付 の2段分 */
-    /* 下: フェーズ名+日付 + 年目盛り */
-    padding: 140px 0 90px;
-    margin-top: 16px;
+    padding: 88px 0 76px;
+    margin-top:20px;
+    text-align:left; /* ラベルのtext-alignをリセット */
   }
+
   /* 軸 */
   .tl-axis {
     position:absolute; left:0; right:0;
-    top:140px;
+    top:88px;
     height:2px; background:var(--border);
   }
-  /* 兼務ライン */
+
+  /* フェーズバー */
+  .tl-bar {
+    position:absolute;
+    top:88px; height:2px;
+    cursor:pointer;
+    transition:height .15s, top .15s, opacity .15s;
+  }
+  .tl-bar:hover, .tl-bar.on { height:4px; top:87px; }
+
+  /* ドット */
+  .tl-dot {
+    position:absolute;
+    top:83px; /* 88 - 5 */
+    width:12px; height:12px;
+    border-radius:50%; border:2px solid var(--bg);
+    cursor:pointer; transform:translateX(-50%);
+    transition:transform .2s; z-index:2;
+  }
+  .tl-dot:hover { transform:translateX(-50%) scale(1.3); }
+
+  /* 上段ラベル: フェーズ名 + 期間
+     フェーズ名 bottom=軸から28px上, 期間 bottom=軸から12px上 */
+  .tl-label-top {
+    position:absolute;
+    bottom: calc(100% - 88px + 12px);
+    transform:translateX(-50%);
+    text-align:center; cursor:pointer; white-space:nowrap;
+  }
+
+  /* 兼務ライン: 上段ラベルのさらに上
+     フェーズ名が ~20px、期間が ~16px → 合計36px + gap8px = 軸から52px上 */
   .tl-concur {
     position:absolute;
-    top: calc(140px - 72px); /* 軸より72px上：上段ラベルのさらに上 */
+    top: calc(88px - 60px); /* 軸より60px上 */
   }
   .tl-concur-bar { height:2px; border-radius:1px; opacity:.5; }
   .tl-concur-label {
@@ -59,54 +94,42 @@
     margin-bottom:4px; text-align:center;
     font-family:'DM Mono','Courier New',monospace;
   }
-  /* フェーズバー */
-  .tl-bar {
-    position:absolute;
-    top:140px;
-    height:2px; cursor:pointer;
-    transition:height .15s,top .15s;
-  }
-  .tl-bar:hover,.tl-bar.on { height:4px; top:139px; }
-  /* ドット */
-  .tl-dot {
-    position:absolute;
-    top: calc(140px - 5px);
-    width:12px; height:12px;
-    border-radius:50%; border:2px solid var(--bg);
-    cursor:pointer; transform:translateX(-50%);
-    transition:transform .2s; z-index:2;
-  }
-  .tl-dot:hover { transform:translateX(-50%) scale(1.3); }
-  /* 上段ラベル（フェーズ名 + 期間） */
-  .tl-label-top {
-    position:absolute;
-    bottom: calc(100% - 140px + 16px); /* 軸より上16px〜 */
-    transform:translateX(-50%);
-    text-align:center; cursor:pointer; white-space:nowrap;
-  }
-  /* 下段ラベル */
+
+  /* 下段ラベル: 軸より16px下 */
   .tl-label-btm {
     position:absolute;
-    top: calc(140px + 16px); /* 軸より下16px */
+    top: calc(88px + 16px);
     transform:translateX(-50%);
     text-align:center; cursor:pointer; white-space:nowrap;
   }
-  .tl-pname { font-size:11px; font-weight:700; color:var(--text); }
-  .tl-period {
-    font-size:10px; color:var(--muted); margin-top:1px;
-    font-family:'DM Mono','Courier New',monospace;
-  }
-  /* 年目盛り — 下段ラベルの下 */
+
+  /* 年目盛り: 下段ラベルの下 */
   .tl-year {
     position:absolute;
-    top: calc(140px + 52px); /* 軸より下52px */
+    top: calc(88px + 56px);
     transform:translateX(-50%);
     font-size:10px; color:var(--muted);
     font-family:'DM Mono','Courier New',monospace;
   }
+
+  .tl-pname { font-size:11px; font-weight:700; color:var(--text); }
+  .tl-period {
+    font-size:10px; color:var(--muted); margin-top:2px;
+    font-family:'DM Mono','Courier New',monospace;
+  }
+  .tl-pname.active { color:var(--accent); }
+
+  /* 透明クリックゾーン */
+  .tl-zone {
+    position:absolute;
+    top:0; bottom:0;
+    cursor:pointer;
+    z-index:3;
+  }
+
   /* 詳細パネル */
   .tl-panel {
-    margin-top:2rem; border:1px solid var(--border);
+    margin-top:2.5rem; border:1px solid var(--border);
     border-radius:8px; overflow:hidden;
   }
   .tl-panel-head {
@@ -138,36 +161,10 @@
     font-family:'DM Mono','Courier New',monospace;
   }
 
-    /* 各フェーズの透明クリック領域（軸をまたぐ大きなボタン） */
-  .tl-zone {
-    position:absolute;
-    top:0; bottom:0;
-    cursor:pointer;
-    z-index:3;
-  }
-  .tl-zone:hover ~ .tl-bar,
-  .tl-bar:hover {
-    height:4px; top:99px;
-  }
-  /* ラベルホバー時の視覚フィードバック */
-  .tl-label-top:hover .tl-pname,
-  .tl-label-btm:hover .tl-pname {
-    color:var(--accent);
-  }
-  /* アクティブフェーズのラベル */
-  .tl-pname.active { color:var(--accent); }
-
   @keyframes tl-fi { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
   .tl-fa { animation:tl-fi .2s ease; }
 
-  @media (max-width:600px) {
-    .card-top { grid-template-columns:1fr; }
-    .card-thumb-link { width:100%; height:auto; }
-    .card-thumb { width:100%; height:auto; aspect-ratio:3/2; }
-    .tl-label-btm, .tl-label-top { display:none; }
-  }
-
-  /* ── 区切り ── */
+    /* ── 区切り ── */
   .section-divider {
     max-width:860px; margin:48px auto 0; padding:0 24px;
     border-top:1px solid var(--border);
@@ -232,48 +229,45 @@
 
   <div class="tl-outer">
     <div class="tl-axis"></div>
-    <!-- 透明クリックゾーン（各フェーズ全体をカバー） -->
-    <div class="tl-zone" style="left:0%;width:4.9%;" onmouseenter="tlSel(0)"></div>
-    <div class="tl-zone" style="left:4.9%;width:18.3%;" onmouseenter="tlSel(1)"></div>
-    <div class="tl-zone" style="left:23.2%;width:31.7%;" onmouseenter="tlSel(2)"></div>
-    <div class="tl-zone" style="left:56.1%;width:43.9%;" onmouseenter="tlSel(3)"></div>
 
-    <!-- 兼務ライン: 2017.10〜2018.3 = left:4.9% width:6.1% -->
+    <!-- 透明ホバーゾーン -->
+    <div class="tl-zone" style="left:0%;width:4.9%;"       onmouseenter="tlSel(0)"></div>
+    <div class="tl-zone" style="left:4.9%;width:18.3%;"    onmouseenter="tlSel(1)"></div>
+    <div class="tl-zone" style="left:23.2%;width:31.7%;"   onmouseenter="tlSel(2)"></div>
+    <div class="tl-zone" style="left:56.1%;width:43.9%;"   onmouseenter="tlSel(3)"></div>
+
+    <!-- 兼務ライン -->
     <div class="tl-concur" style="left:4.9%;width:6.1%;">
       <div class="tl-concur-label">カスタマーサクセス 兼務</div>
       <div class="tl-concur-bar" style="background:#378ADD;"></div>
     </div>
 
-    <!-- Phase 1: CAMPFIRE -->
-    <div class="tl-bar" style="left:0%;width:4.9%;background:#7F77DD;" onmouseenter="tlSel(0)"></div>
-    <div class="tl-dot" style="left:0%;background:#7F77DD;" onmouseenter="tlSel(0)"></div>
-    <div class="tl-label-top" style="left:2.4%;" onmouseenter="tlSel(0)">
+    <!-- Phase 1: CAMPFIRE（上段） -->
+    <div class="tl-bar" style="left:0%;width:4.9%;background:#7F77DD;"></div>
+    <div class="tl-dot" style="left:0%;background:#7F77DD;"></div>
+    <div class="tl-label-top" style="left:2.4%;">
       <div class="tl-pname">CAMPFIRE</div>
-      <div class="tl-period">2017.06</div>
     </div>
 
-    <!-- Phase 2: Local→FAAVO -->
-    <div class="tl-bar" style="left:4.9%;width:18.3%;background:#1D9E75;" onmouseenter="tlSel(1)"></div>
-    <div class="tl-dot" style="left:4.9%;background:#1D9E75;" onmouseenter="tlSel(1)"></div>
-    <div class="tl-label-btm" style="left:14%;" onmouseenter="tlSel(1)">
+    <!-- Phase 2: Local→FAAVO（下段） -->
+    <div class="tl-bar" style="left:4.9%;width:18.3%;background:#1D9E75;"></div>
+    <div class="tl-dot" style="left:4.9%;background:#1D9E75;"></div>
+    <div class="tl-label-btm" style="left:14%;">
       <div class="tl-pname">CAMPFIRE Local → FAAVO</div>
-      <div class="tl-period">2017.10 — 2019.01</div>
     </div>
 
-    <!-- Phase 3: EXODUS -->
-    <div class="tl-bar" style="left:23.2%;width:31.7%;background:#D85A30;" onmouseenter="tlSel(2)"></div>
-    <div class="tl-dot" style="left:23.2%;background:#D85A30;" onmouseenter="tlSel(2)"></div>
-    <div class="tl-label-top" style="left:39%;" onmouseenter="tlSel(2)">
+    <!-- Phase 3: EXODUS（上段） -->
+    <div class="tl-bar" style="left:23.2%;width:31.7%;background:#D85A30;"></div>
+    <div class="tl-dot" style="left:23.2%;background:#D85A30;"></div>
+    <div class="tl-label-top" style="left:39%;">
       <div class="tl-pname">EXODUS / 新規事業</div>
-      <div class="tl-period">2019.01 — 2021.03</div>
     </div>
 
-    <!-- Phase 4: CS -->
-    <div class="tl-bar" style="left:56.1%;width:43.9%;background:#378ADD;" onmouseenter="tlSel(3)"></div>
-    <div class="tl-dot" style="left:56.1%;background:#378ADD;" onmouseenter="tlSel(3)"></div>
-    <div class="tl-label-btm" style="left:77%;" onmouseenter="tlSel(3)">
+    <!-- Phase 4: CS（下段） -->
+    <div class="tl-bar" style="left:56.1%;width:43.9%;background:#378ADD;"></div>
+    <div class="tl-dot" style="left:56.1%;background:#378ADD;"></div>
+    <div class="tl-label-btm" style="left:77%;">
       <div class="tl-pname">カスタマーサクセス</div>
-      <div class="tl-period">2021.04 — 2024.04</div>
     </div>
 
     <!-- 終端ドット -->
