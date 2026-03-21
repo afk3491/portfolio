@@ -27,30 +27,31 @@
   /* ── タイムラインセクション ── */
   .timeline-section {
     max-width:860px; margin:0 auto; padding:56px 24px 0;
+    text-align:center;
   }
   .timeline-section .section-label {
-    font-size:13px; letter-spacing:0.15em; text-transform:uppercase;
+    font-size:13px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
     color:#1a1a1a; margin-bottom:0; text-align:center;
     display:inline-block;
     background:#E6FC03; padding:4px 14px; border-radius:2px;
   }
   .tl-outer {
     position:relative;
-    /* 上: フェーズ名+日付 = 約52px、兼務ライン = 約24px → 合計80px */
-    /* 下: フェーズ名+日付 = 約44px、年目盛り = 約20px → 合計68px */
-    padding: 100px 0 80px;
+    /* 上: 兼務ライン + フェーズ名+日付 の2段分 */
+    /* 下: フェーズ名+日付 + 年目盛り */
+    padding: 140px 0 90px;
     margin-top: 16px;
   }
   /* 軸 */
   .tl-axis {
     position:absolute; left:0; right:0;
-    top:100px; /* padding-topと同じ */
+    top:140px;
     height:2px; background:var(--border);
   }
   /* 兼務ライン */
   .tl-concur {
     position:absolute;
-    top: calc(100px - 32px); /* 軸より32px上 */
+    top: calc(140px - 72px); /* 軸より72px上：上段ラベルのさらに上 */
   }
   .tl-concur-bar { height:2px; border-radius:1px; opacity:.5; }
   .tl-concur-label {
@@ -61,15 +62,15 @@
   /* フェーズバー */
   .tl-bar {
     position:absolute;
-    top:100px;
+    top:140px;
     height:2px; cursor:pointer;
     transition:height .15s,top .15s;
   }
-  .tl-bar:hover,.tl-bar.on { height:4px; top:99px; }
+  .tl-bar:hover,.tl-bar.on { height:4px; top:139px; }
   /* ドット */
   .tl-dot {
     position:absolute;
-    top: calc(100px - 5px);
+    top: calc(140px - 5px);
     width:12px; height:12px;
     border-radius:50%; border:2px solid var(--bg);
     cursor:pointer; transform:translateX(-50%);
@@ -79,14 +80,14 @@
   /* 上段ラベル（フェーズ名 + 期間） */
   .tl-label-top {
     position:absolute;
-    bottom: calc(100% - 100px + 16px); /* 軸より上16px〜 */
+    bottom: calc(100% - 140px + 16px); /* 軸より上16px〜 */
     transform:translateX(-50%);
     text-align:center; cursor:pointer; white-space:nowrap;
   }
   /* 下段ラベル */
   .tl-label-btm {
     position:absolute;
-    top: calc(100px + 16px); /* 軸より下16px */
+    top: calc(140px + 16px); /* 軸より下16px */
     transform:translateX(-50%);
     text-align:center; cursor:pointer; white-space:nowrap;
   }
@@ -98,7 +99,7 @@
   /* 年目盛り — 下段ラベルの下 */
   .tl-year {
     position:absolute;
-    top: calc(100px + 52px); /* 軸より下52px */
+    top: calc(140px + 52px); /* 軸より下52px */
     transform:translateX(-50%);
     font-size:10px; color:var(--muted);
     font-family:'DM Mono','Courier New',monospace;
@@ -173,7 +174,7 @@
     text-align:center;
   }
   .section-label2 {
-    font-size:13px; letter-spacing:0.15em; text-transform:uppercase;
+    font-size:13px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
     color:#1a1a1a;
     display:inline-block;
     background:#E6FC03; padding:4px 14px; border-radius:2px;
@@ -222,7 +223,7 @@
 
 <header>
   <p class="label">Crowdfunding Portfolio</p>
-  <h1>CAMPFIREでのタイムラインと業務実績</h1>
+  <h1>CAMPFIREでのキャリアタイムラインと業務実績</h1>
 </header>
 
 <!-- ── タイムライン ── -->
