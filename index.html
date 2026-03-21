@@ -137,12 +137,7 @@
     font-family:'DM Mono','Courier New',monospace;
   }
 
-    .tl-hint {
-    font-size:11px; color:var(--muted); text-align:center;
-    margin-top:20px; margin-bottom:0;
-    letter-spacing:.05em;
-  }
-  /* 各フェーズの透明クリック領域（軸をまたぐ大きなボタン） */
+    /* 各フェーズの透明クリック領域（軸をまたぐ大きなボタン） */
   .tl-zone {
     position:absolute;
     top:0; bottom:0;
@@ -170,6 +165,57 @@
     .card-thumb { width:100%; height:auto; aspect-ratio:3/2; }
     .tl-label-btm, .tl-label-top { display:none; }
   }
+
+  /* ── 区切り ── */
+  .section-divider {
+    max-width:860px; margin:48px auto 0; padding:0 24px;
+    border-top:1px solid var(--border);
+    text-align:center;
+  }
+  .section-label2 {
+    font-size:13px; letter-spacing:0.15em; text-transform:uppercase;
+    color:#1a1a1a;
+    display:inline-block;
+    background:#E6FC03; padding:4px 14px; border-radius:2px;
+    margin-top:40px;
+  }
+  .section-desc {
+    font-size:13px; color:var(--sub); line-height:1.8;
+    text-align:center; margin-top:12px;
+  }
+  /* ── プロジェクトリスト ── */
+  .project-list { max-width:860px; margin:0 auto; padding:0 24px 80px; }
+  .card { border-bottom:1px solid var(--border); padding:36px 0; }
+  .card:first-child { border-top:1px solid var(--border); margin-top:40px; }
+  .card-top { display:grid; grid-template-columns:200px 1fr; gap:0 28px; align-items:start; }
+  .card-thumb-link { display:block; width:200px; height:134px; }
+  .card-thumb { width:200px; height:134px; background:var(--thumb-bg); overflow:hidden; }
+  .card-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity 0.2s; }
+  .card-thumb-link:hover img { opacity:0.85; }
+  .card-meta { display:flex; align-items:center; gap:12px; margin-bottom:6px; flex-wrap:wrap; }
+  .card-period { font-size:11px; color:var(--muted); }
+  .card-category { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); font-weight:600; }
+  .card-title { font-size:15px; font-weight:700; line-height:1.55; color:var(--text); text-decoration:none; display:block; margin-bottom:4px; }
+  .card-title:hover { color:var(--accent); }
+  .card-org { font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .tag { font-size:11px; padding:2px 8px; background:var(--tag-bg); color:var(--sub); border-radius:2px; }
+  .tag-special { background:transparent; border:1px solid var(--accent); color:var(--accent); }
+  .card-stats { display:flex; align-items:baseline; gap:16px; }
+  .card-amount { font-size:13px; color:var(--sub); }
+  .card-supporters { font-size:12px; color:var(--muted); }
+  .card-comment { margin-top:14px; }
+  .card-comment summary { font-size:11px; color:var(--muted); letter-spacing:0.1em; cursor:pointer; user-select:none; list-style:none; display:flex; align-items:center; gap:6px; }
+  .card-comment summary::-webkit-details-marker { display:none; }
+  .card-comment summary::before { content:'▶'; font-size:9px; transition:transform 0.2s; }
+  .card-comment[open] summary::before { transform:rotate(90deg); }
+  .card-comment .comment-body { margin-top:10px; background:var(--tag-bg); border-radius:8px; padding:12px 14px; font-size:13px; color:var(--sub); line-height:1.8; }
+  .card-comment .comment-body p { margin-bottom:0.8em; }
+  .card-comment .comment-body p:last-child { margin-bottom:0; }
+  .card-comment .comment-body img { max-width:100%; border-radius:4px; margin:8px auto; display:block; }
+  .card-comment .comment-body iframe { max-width:100%; margin:8px auto; display:block; border-radius:4px; }
+  .card-comment .comment-body a { color:var(--accent); text-decoration:underline; }
+  footer { text-align:center; padding:24px; font-size:11px; color:var(--muted); letter-spacing:0.1em; border-top:1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -183,14 +229,13 @@
 <div class="timeline-section">
   <p class="section-label">Career Timeline — CAMPFIRE Inc. 2017.06 → 2024.04</p>
 
-  <p class="tl-hint">▼ 各フェーズをクリックすると詳細が表示されます</p>
   <div class="tl-outer">
     <div class="tl-axis"></div>
     <!-- 透明クリックゾーン（各フェーズ全体をカバー） -->
-    <div class="tl-zone" style="left:0%;width:4.9%;" onclick="tlSel(0)"></div>
-    <div class="tl-zone" style="left:4.9%;width:18.3%;" onclick="tlSel(1)"></div>
-    <div class="tl-zone" style="left:23.2%;width:31.7%;" onclick="tlSel(2)"></div>
-    <div class="tl-zone" style="left:56.1%;width:43.9%;" onclick="tlSel(3)"></div>
+    <div class="tl-zone" style="left:0%;width:4.9%;" onmouseenter="tlSel(0)"></div>
+    <div class="tl-zone" style="left:4.9%;width:18.3%;" onmouseenter="tlSel(1)"></div>
+    <div class="tl-zone" style="left:23.2%;width:31.7%;" onmouseenter="tlSel(2)"></div>
+    <div class="tl-zone" style="left:56.1%;width:43.9%;" onmouseenter="tlSel(3)"></div>
 
     <!-- 兼務ライン: 2017.10〜2018.3 = left:4.9% width:6.1% -->
     <div class="tl-concur" style="left:4.9%;width:6.1%;">
@@ -199,33 +244,33 @@
     </div>
 
     <!-- Phase 1: CAMPFIRE -->
-    <div class="tl-bar" style="left:0%;width:4.9%;background:#7F77DD;" onclick="tlSel(0)"></div>
-    <div class="tl-dot" style="left:0%;background:#7F77DD;" onclick="tlSel(0)"></div>
-    <div class="tl-label-top" style="left:2.4%;" onclick="tlSel(0)">
+    <div class="tl-bar" style="left:0%;width:4.9%;background:#7F77DD;" onmouseenter="tlSel(0)"></div>
+    <div class="tl-dot" style="left:0%;background:#7F77DD;" onmouseenter="tlSel(0)"></div>
+    <div class="tl-label-top" style="left:2.4%;" onmouseenter="tlSel(0)">
       <div class="tl-pname">CAMPFIRE</div>
       <div class="tl-period">2017.06</div>
     </div>
 
     <!-- Phase 2: Local→FAAVO -->
-    <div class="tl-bar" style="left:4.9%;width:18.3%;background:#1D9E75;" onclick="tlSel(1)"></div>
-    <div class="tl-dot" style="left:4.9%;background:#1D9E75;" onclick="tlSel(1)"></div>
-    <div class="tl-label-btm" style="left:14%;" onclick="tlSel(1)">
+    <div class="tl-bar" style="left:4.9%;width:18.3%;background:#1D9E75;" onmouseenter="tlSel(1)"></div>
+    <div class="tl-dot" style="left:4.9%;background:#1D9E75;" onmouseenter="tlSel(1)"></div>
+    <div class="tl-label-btm" style="left:14%;" onmouseenter="tlSel(1)">
       <div class="tl-pname">CAMPFIRE Local → FAAVO</div>
       <div class="tl-period">2017.10 — 2019.01</div>
     </div>
 
     <!-- Phase 3: EXODUS -->
-    <div class="tl-bar" style="left:23.2%;width:31.7%;background:#D85A30;" onclick="tlSel(2)"></div>
-    <div class="tl-dot" style="left:23.2%;background:#D85A30;" onclick="tlSel(2)"></div>
-    <div class="tl-label-top" style="left:39%;" onclick="tlSel(2)">
+    <div class="tl-bar" style="left:23.2%;width:31.7%;background:#D85A30;" onmouseenter="tlSel(2)"></div>
+    <div class="tl-dot" style="left:23.2%;background:#D85A30;" onmouseenter="tlSel(2)"></div>
+    <div class="tl-label-top" style="left:39%;" onmouseenter="tlSel(2)">
       <div class="tl-pname">EXODUS / 新規事業</div>
       <div class="tl-period">2019.01 — 2021.03</div>
     </div>
 
     <!-- Phase 4: CS -->
-    <div class="tl-bar" style="left:56.1%;width:43.9%;background:#378ADD;" onclick="tlSel(3)"></div>
-    <div class="tl-dot" style="left:56.1%;background:#378ADD;" onclick="tlSel(3)"></div>
-    <div class="tl-label-btm" style="left:77%;" onclick="tlSel(3)">
+    <div class="tl-bar" style="left:56.1%;width:43.9%;background:#378ADD;" onmouseenter="tlSel(3)"></div>
+    <div class="tl-dot" style="left:56.1%;background:#378ADD;" onmouseenter="tlSel(3)"></div>
+    <div class="tl-label-btm" style="left:77%;" onmouseenter="tlSel(3)">
       <div class="tl-pname">カスタマーサクセス</div>
       <div class="tl-period">2021.04 — 2024.04</div>
     </div>
