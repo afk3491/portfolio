@@ -658,7 +658,22 @@ function tlSel(i) {
   setTimeout(function(){ panel.classList.remove('tl-fa'); }, 250);
 }
 
-// 初期表示なし（ホバーで表示）
+// 初期表示なし（ホバー/タッチで表示）
+
+// タッチデバイス対応: tl-zone に touchstart を追加
+document.querySelectorAll('.tl-zone').forEach(function(zone, i) {
+  zone.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    tlSel(i);
+  }, {passive: false});
+});
+// バー・ドット・ラベルにも touchstart を追加
+document.querySelectorAll('.tl-bar').forEach(function(el, i) {
+  el.addEventListener('touchstart', function(e) { e.preventDefault(); tlSel(i); }, {passive: false});
+});
+document.querySelectorAll('.tl-dot:not(:last-child)').forEach(function(el, i) {
+  el.addEventListener('touchstart', function(e) { e.preventDefault(); tlSel(i); }, {passive: false});
+});
 
 // comments fetch（既存コード）
 document.querySelectorAll('[data-comment]').forEach(function(el) {
