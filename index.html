@@ -309,7 +309,7 @@
     <div class="tl-year" style="left:99%">2024</div>
   </div>
 
-  <div class="tl-panel" id="tl-panel"></div>
+  <div class="tl-panel" id="tl-panel" style="display:none;"></div>
 </div>
 
 <!-- ── プロジェクト実績 ── -->
@@ -653,12 +653,12 @@ function tlSel(i) {
       '</ul></div>';
   }
 
+  panel.style.display = 'block';
   panel.classList.add('tl-fa');
   setTimeout(function(){ panel.classList.remove('tl-fa'); }, 250);
 }
 
-// 初期表示
-tlSel(0);
+// 初期表示なし（ホバーで表示）
 
 // comments fetch（既存コード）
 document.querySelectorAll('[data-comment]').forEach(function(el) {
