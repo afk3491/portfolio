@@ -665,6 +665,9 @@ if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
   document.querySelectorAll('.tl-label-top, .tl-label-btm, .tl-concur-label').forEach(function(el) {
     el.style.display = 'none';
   });
+  // 兼務バーごと非表示
+  var concurWrap = document.querySelector('.tl-concur');
+  if (concurWrap) concurWrap.style.display = 'none';
 }
 
 // タッチデバイス対応: tl-zone に touchstart を追加
