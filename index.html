@@ -209,11 +209,14 @@
     background-size:cover; background-position:center;
     opacity:0; transition:opacity 0.4s ease;
     z-index:0;
+    pointer-events:none;
   }
   .card-bg::after {
     content:''; position:absolute; inset:0;
     background:rgba(0,0,0,0.55);
+    pointer-events:none;
   }
+  .card-top, .card-comment { position:relative; z-index:1; }
   .card.bg-active .card-bg { opacity:1; }
   .card.bg-active .card-top,
   .card.bg-active .card-comment { position:relative; z-index:1; }
