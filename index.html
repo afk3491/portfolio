@@ -199,37 +199,19 @@
   }
   /* ── プロジェクトリスト ── */
   .project-list { max-width:860px; margin:0 auto; padding:0 24px 80px; }
-  .card {
-    border-bottom:1px solid var(--border); padding:36px 0;
-    position:relative; overflow:hidden;
-    transition:background 0.3s;
-  }
-  .card-bg {
-    position:absolute; inset:0;
-    background-size:cover; background-position:center;
-    opacity:0; transition:opacity 0.4s ease;
-    z-index:0;
-    pointer-events:none;
-  }
-  .card-bg::after {
-    content:''; position:absolute; inset:0;
-    background:rgba(0,0,0,0.55);
-    pointer-events:none;
-  }
-  .card-top, .card-comment { position:relative; z-index:1; }
-  .card.bg-active .card-bg { opacity:1; }
-  .card.bg-active .card-top,
-  .card.bg-active .card-comment { position:relative; z-index:1; }
-  .card.bg-active .card-title { color:#fff; }
-  .card.bg-active .card-title:hover { color:var(--accent); }
-  .card.bg-active .card-period,
-  .card.bg-active .card-org,
-  .card.bg-active .card-amount,
-  .card.bg-active .card-supporters { color:rgba(255,255,255,0.7); }
-  .card.bg-active .card-category { color:var(--accent); }
-  .card.bg-active .tag { background:rgba(255,255,255,0.15); color:#fff; }
-  .card.bg-active .card-comment summary { color:rgba(255,255,255,0.6); }
-  .card.bg-active .card-comment .comment-body { background:rgba(0,0,0,0.3); color:#fff; }
+  .card { border-bottom:1px solid var(--border); padding:36px 0; }
+
+
+
+
+
+
+
+
+
+
+
+
   .card:first-child { border-top:1px solid var(--border); margin-top:40px; }
   .card-top { display:grid; grid-template-columns:200px 1fr; gap:0 28px; align-items:start; }
   .card-thumb-link { display:block; width:200px; height:134px; }
@@ -351,7 +333,7 @@
 
 <div class="project-list">
 
-  <article class="card" data-bg="00_handwritten.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/40518" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="00_handwritten.jpg" alt="HAND-WRITTEN SHOWCASE"></div>
@@ -370,7 +352,7 @@
     <div class="card-comment" data-comment="40518"></div>
   </article>
 
-  <article class="card" data-bg="00b_shibuya.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/52974" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="00b_shibuya.jpg" alt="渋谷アートエンタテインメント"></div>
@@ -389,7 +371,7 @@
     <div class="card-comment" data-comment="52974"></div>
   </article>
 
-  <article class="card" data-bg="01_momo.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/54332" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="01_momo.jpg" alt="MOMO2号機"></div>
@@ -408,7 +390,7 @@
     <div class="card-comment" data-comment="54332"></div>
   </article>
 
-  <article class="card" data-bg="08_haisai.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/100401" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="08_haisai.jpg" alt="ハイサイ大清掃2018"></div>
@@ -428,7 +410,7 @@
   </article>
 
 
-  <article class="card" data-bg="02_deletec.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/124546" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="02_deletec.jpg" alt="deleteC"></div>
@@ -447,7 +429,7 @@
     <div class="card-comment" data-comment="124546"></div>
   </article>
 
-  <article class="card" data-bg="03_innmylife.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/124160" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="03_innmylife.jpg" alt="INN MY LIFE"></div>
@@ -466,7 +448,7 @@
     <div class="card-comment" data-comment="124160"></div>
   </article>
 
-  <article class="card" data-bg="09_hell.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/133327" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="09_hell.jpg" alt="the HELL Record &amp; Sour"></div>
@@ -486,7 +468,7 @@
   </article>
 
 
-  <article class="card" data-bg="04_hakua.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/143131" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="04_hakua.jpg" alt="白亜"></div>
@@ -505,7 +487,7 @@
     <div class="card-comment" data-comment="143131"></div>
   </article>
 
-  <article class="card" data-bg="05_gensho.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/571880" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="05_gensho.jpg" alt="安田現象"></div>
@@ -524,7 +506,7 @@
     <div class="card-comment" data-comment="571880"></div>
   </article>
 
-  <article class="card" data-bg="06_seawall.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/599785" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="06_seawall.jpg" alt="SEAWALL MUSEUM"></div>
@@ -543,7 +525,7 @@
     <div class="card-comment" data-comment="599785"></div>
   </article>
 
-  <article class="card" data-bg="07_yukiueda.jpg">
+  <article class="card">
     <div class="card-top">
       <a href="https://camp-fire.jp/projects/673821" target="_blank" rel="noopener" class="card-thumb-link">
         <div class="card-thumb"><img src="07_yukiueda.jpg" alt="上田優紀"></div>
@@ -755,27 +737,6 @@ document.querySelectorAll('.tl-bar').forEach(function(el, i) {
 document.querySelectorAll('.tl-dot:not(:last-child)').forEach(function(el, i) {
   el.addEventListener('touchstart', function(e) { e.preventDefault(); tlSel(i); }, {passive: false});
 });
-
-// 各カードにcard-bg要素を追加
-document.querySelectorAll('.card[data-bg]').forEach(function(card) {
-  var bg = document.createElement('div');
-  bg.className = 'card-bg';
-  bg.style.backgroundImage = 'url(' + card.dataset.bg + ')';
-  card.insertBefore(bg, card.firstChild);
-});
-
-// details開閉で背景を切り替え
-document.addEventListener('toggle', function(e) {
-  if (e.target.classList.contains('card-comment')) {
-    var card = e.target.closest('.card');
-    if (!card) return;
-    if (e.target.open) {
-      card.classList.add('bg-active');
-    } else {
-      card.classList.remove('bg-active');
-    }
-  }
-}, true);
 
 // comments fetch（既存コード）
 document.querySelectorAll('[data-comment]').forEach(function(el) {
